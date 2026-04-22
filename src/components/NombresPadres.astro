@@ -1,0 +1,49 @@
+---
+// NombresPadres.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] py-[15px]"
+>
+    <!-- PERSONAJE izquierda pegado al borde → cambia w-[90px] para tamaño, bottom-[0px] para altura -->
+    <img
+        src="/imagenes/personaje2.png"
+        alt="Personaje"
+        class="absolute left-0 bottom-0 z-[20] pointer-events-none select-none w-[90px] h-auto"
+    />
+
+    <div
+        class="relative w-full max-w-[420px] flex flex-col items-center gap-0"
+    >
+        <!-- TÍTULO "Mis Padres" -->
+        <h2 class="font-great-vibes text-[38px] text-[#1a6b6a] m-0">
+            Mis Padres
+        </h2>
+
+        <!-- MARCO -->
+        <div class="relative w-[85%]">
+            <!-- IMAGEN DEL MARCO -->
+            <img
+                src="/imagenes/marco2.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- NOMBRES DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 z-[15] flex flex-col items-center justify-center gap-2 px-[15%] py-[10%]"
+            >
+                <p
+                    class="font-charm text-[20px] text-[#1a6b6a] text-center m-0 leading-relaxed"
+                >
+                    Mirko Burgoa Casas
+                </p>
+                <p
+                    class="font-charm text-[20px] text-[#1a6b6a] text-center m-0 leading-relaxed"
+                >
+                    Neisa Lastra Valdivia
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

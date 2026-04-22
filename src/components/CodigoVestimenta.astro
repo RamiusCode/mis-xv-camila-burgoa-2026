@@ -1,0 +1,74 @@
+---
+// CodigoVestimenta.astro
+---
+
+<style>
+    /* Tinta el ícono al color dorado #c8960c */
+    .icono-dorado {
+        filter: brightness(0) saturate(100%) invert(62%) sepia(60%)
+            saturate(700%) hue-rotate(5deg) brightness(92%);
+    }
+</style>
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-0 pt-0 pb-10"
+>
+    <div class="relative w-full max-w-[650px] flex flex-col items-center">
+        <!-- CONTENEDOR MARCO + PERSONAJES -->
+        <div class="relative w-full">
+            <!-- PERSONAJE6 (abajo izquierda) -->
+            <img
+                src="/imagenes/personaje6.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] left-[-10%] z-[15] pointer-events-none select-none w-[140px] h-auto"
+            />
+
+            <!-- PERSONAJE7 (abajo derecha) -->
+            <img
+                src="/imagenes/personaje7.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] right-[-8%] z-[15] pointer-events-none select-none w-[100px] h-auto"
+            />
+
+            <!-- MARCO -->
+            <img
+                src="/imagenes/marco5.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- TEXTO DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center gap-0 px-[18%] pt-[15%] pb-[10%]"
+            >
+                <!-- IMAGEN VESTIMENTA -->
+                <img
+                    src="/imagenes/vestimenta.png"
+                    alt="Código de vestimenta"
+                    class="w-[45px] h-auto pointer-events-none select-none mb-[8px]"
+                />
+
+                <!-- TÍTULO -->
+                <p
+                    class="font-great-vibes text-[32px] text-[#c8960c] text-center m-0 leading-tight [text-shadow:0_2px_12px_rgba(200,150,12,0.35)]"
+                >
+                    Código de Vestimenta
+                </p>
+
+                <!-- SUBTÍTULO -->
+                <p
+                    class="font-charm text-[20px] text-[#1a6b6a] text-center m-0 leading-relaxed mt-[4px] font-bold uppercase tracking-widest"
+                >
+                    Guapos y Divinas
+                </p>
+
+                <!-- TEXTO RESERVA -->
+                <p
+                    class="font-crimson italic text-[14px] text-[#c8960c] text-center m-0 leading-tight mt-[12px] px-4"
+                >
+                    "Que se reserve el color turquesa y dorado para la quinceañera"
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

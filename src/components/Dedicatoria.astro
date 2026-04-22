@@ -1,0 +1,39 @@
+---
+// Mensaje.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] pt-[4px]"
+>
+    <!-- MARCO → cambia max-w-[400px] para el ancho -->
+    <div class="relative w-full max-w-[400px]">
+        <!-- IMAGEN DEL MARCO -->
+        <img
+            src="/imagenes/marco.png"
+            alt=""
+            class="w-full h-auto block pointer-events-none select-none"
+        />
+
+        <!-- TEXTO DENTRO DEL MARCO -->
+        <!-- px-[72px] = separación horizontal del texto al borde del marco -->
+        <!-- py-[88px] = separación vertical del texto al borde del marco  -->
+        <div
+            class="absolute inset-0 flex items-center justify-center px-[40px] pt-[10px]"
+        >
+            <!-- text-[18px] = tamaño del texto -->
+            <!-- leading-[1.8] = espaciado entre líneas -->
+            <p class="font-charm text-[18px] text-[#4a3728] text-center m-0">
+                Hoy cumplo 15 años<br />
+                y estoy muy feliz.<br />
+                Gracias a mis papás<br />
+                por su amor y apoyo.<br />
+                Gracias a mi familia<br />
+                y amigos<br />
+                por acompañarme hoy.<br />
+                Hoy empieza una nueva<br /> etapa.<br />
+                Gracias por ser parte<br />
+                de este día especial.
+            </p>
+        </div>
+    </div>
+</div>

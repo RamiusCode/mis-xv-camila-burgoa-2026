@@ -1,0 +1,52 @@
+---
+// Hora.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 pt-0 pb-10"
+>
+    <div
+        class="relative w-full max-w-[400px] flex flex-col items-center justify-center"
+        style="min-height: 220px;"
+    >
+        <!-- MONO (arriba derecha) -->
+        <img
+            src="/imagenes/mono.png"
+            alt="Mono"
+            class="absolute top-0 right-[2%] z-[5] pointer-events-none select-none w-[100px] h-auto"
+        />
+
+        <!-- PERSONAJE5 → cambia left-[-5%] para mover más a la izquierda -->
+        <img
+            src="/imagenes/personaje5.png"
+            alt="Personaje"
+            class="absolute bottom-0 left-[-5%] z-[5] pointer-events-none select-none w-[130px] h-auto"
+        />
+
+        <!-- RELOJ + TEXTO (centro) -->
+        <div class="relative z-[10] flex flex-col items-center gap-[4px]">
+
+            <!-- RELOJ -->
+            <img
+                src="/imagenes/reloj.png"
+                alt="Reloj"
+                class="w-[80px] h-auto pointer-events-none select-none"
+            />
+
+            <p class="font-charm text-[20px] uppercase tracking-[0.2em] text-[#1a6b6a] font-bold m-0">
+                Hora
+            </p>
+
+            <!-- HORA → gran protagonista como el "9" en fecha -->
+            <p class="font-great-vibes text-[72px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]">
+                7:00
+            </p>
+
+            <!-- PM -->
+            <p class="font-charm text-[20px] uppercase tracking-[0.2em] text-[#1a6b6a] font-bold m-0">
+                PM
+            </p>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+---
+// Invitacion.astro
+---
+
+<div
+    id="acoded-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-[24px] py-[40px]"
+>
+    <div
+        class="relative z-10 flex flex-col items-center justify-center text-center gap-6 max-w-[400px]"
+    >
+        <!-- LÁMPARA -->
+        <img
+            id="acoded-lampara"
+            src="/imagenes/lampara.png"
+            alt="Lámpara mágica"
+            class="w-[100px] h-auto pointer-events-none select-none"
+        />
+
+        <!-- TEXTO SUPERIOR -->
+        <p
+            id="acoded-texto-sup"
+            class="font-crimson text-lg uppercase text-[#1a6b6a] leading-relaxed m-0"
+        >
+            TENEMOS EL AGRADO DE INVITARTE A CELEBRAR LOS 15 AÑOS DE NUESTRA
+            QUERIDA HIJA
+        </p>
+
+        <!-- NOMBRE -->
+        <h1
+            id="acoded-nombre"
+            class="font-great-vibes text-[52px] text-[#c8960c] leading-[1.1] m-0"
+        >
+            Camila Burgos
+        </h1>
+
+        <!-- TEXTO INFERIOR -->
+        <p
+            id="acoded-texto-inf"
+            class="font-crimson text-lg uppercase text-[#1a6b6a] leading-relaxed m-0"
+        >
+            ACOMPÁÑANOS EN ESTE DÍA TAN ESPECIAL, LLENO DE AMOR Y ALEGRÍA
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#acoded-contenedor",
+            start: "top 80%",
+            toggleActions: "play none none none",
+        },
+    });
+
+    // Lámpara cae suave desde arriba
+    tl.from("#acoded-lampara", {
+        y: -30,
+        opacity: 0,
+        duration: 1.2,
+        ease: "sine.out",
+    }, 0);
+
+    // Texto superior sube suave
+    tl.from("#acoded-texto-sup", {
+        y: 20,
+        opacity: 0,
+        duration: 1.0,
+        ease: "sine.out",
+    }, 0.3);
+
+    // Nombre letra por letra
+    const h1 = document.querySelector<HTMLElement>("#acoded-nombre");
+    if (h1) {
+        const texto = h1.textContent ?? "";
+        h1.innerHTML = texto.split("").map(c =>
+            c === " "
+                ? `<span style="display:inline-block">&nbsp;</span>`
+                : `<span style="display:inline-block">${c}</span>`
+        ).join("");
+
+        tl.from(h1.querySelectorAll("span"), {
+            opacity: 0,
+            y: 3,
+            duration: 0.5,
+            stagger: 0.09,
+            ease: "sine.out",
+        }, 0.6);
+    }
+
+    // Texto inferior sube suave
+    tl.from("#acoded-texto-inf", {
+        y: 20,
+        opacity: 0,
+        duration: 1.0,
+        ease: "sine.out",
+    }, 1.0);
+</script>

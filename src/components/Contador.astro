@@ -1,0 +1,156 @@
+---
+// Contador.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center px-[16px] py-[40px]"
+>
+    <div class="relative w-full max-w-[400px] flex flex-col items-center">
+        <!-- PERSONAJE arriba, detrás del rectángulo → cambia w-[140px] para tamaño, mb-[-40px] para cuánto se oculta -->
+        <img
+            src="/imagenes/personaje4.png"
+            alt="Personaje"
+            class="relative z-[1] w-[140px] h-auto pointer-events-none select-none mb-[-20px]"
+        />
+
+        <!-- RECTÁNGULO → cambia bg-[#1a6b6a] para el color, rounded-[16px] para bordes -->
+        <div
+            class="relative z-[5] w-full rounded-[16px] bg-[#8cbdbc] py-[12px] px-[16px]"
+        >
+            <!-- TÍTULO → cambia text-[42px] para tamaño -->
+            <h2
+                class="font-great-vibes text-[42px] text-white m-0 text-center mb-[4px]"
+            >
+                Falta
+            </h2>
+
+            <!-- NÚMEROS -->
+            <div class="flex items-center justify-center gap-[12px]">
+                <!-- DÍAS -->
+                <div class="flex flex-col items-center">
+                    <!-- text-[40px] = tamaño número | font-light = delgado -->
+                    <span
+                        id="cont-dias"
+                        class="font-crimson text-[40px] font-light text-white leading-none"
+                        >00</span
+                    >
+                    <!-- text-[10px] = tamaño etiqueta -->
+                    <span
+                        class="font-crimson text-[10px] uppercase tracking-[0.2em] text-white/80 mt-[4px]"
+                        >Días</span
+                    >
+                </div>
+
+                <span
+                    class="font-crimson text-[32px] font-light text-white leading-none mb-[14px]"
+                    >:</span
+                >
+
+                <!-- HORAS -->
+                <div class="flex flex-col items-center">
+                    <span
+                        id="cont-horas"
+                        class="font-crimson text-[40px] font-light text-white leading-none"
+                        >00</span
+                    >
+                    <span
+                        class="font-crimson text-[10px] uppercase tracking-[0.2em] text-white/80 mt-[4px]"
+                        >Horas</span
+                    >
+                </div>
+
+                <span
+                    class="font-crimson text-[32px] font-light text-white leading-none mb-[14px]"
+                    >:</span
+                >
+
+                <!-- MINUTOS -->
+                <div class="flex flex-col items-center">
+                    <span
+                        id="cont-minutos"
+                        class="font-crimson text-[40px] font-light text-white leading-none"
+                        >00</span
+                    >
+                    <span
+                        class="font-crimson text-[10px] uppercase tracking-[0.2em] text-white/80 mt-[4px]"
+                        >Minutos</span
+                    >
+                </div>
+
+                <span
+                    class="font-crimson text-[32px] font-light text-white leading-none mb-[14px]"
+                    >:</span
+                >
+
+                <!-- SEGUNDOS -->
+                <div class="flex flex-col items-center">
+                    <span
+                        id="cont-segundos"
+                        class="font-crimson text-[40px] font-light text-white leading-none"
+                        >00</span
+                    >
+                    <span
+                        class="font-crimson text-[10px] uppercase tracking-[0.2em] text-white/80 mt-[4px]"
+                        >Segundos</span
+                    >
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // ── FECHA DEL EVENTO ── cambia cada valor por separado
+        const AÑO = 2026; // ← año
+        const MES = 5; // ← mes (1=enero, 5=mayo, 12=diciembre)
+        const DIA = 9; // ← día
+        const HORA = 19; // ← hora (formato 24h)
+        const MINUTO = 0; // ← minutos
+
+        const fechaEvento = new Date(
+            AÑO,
+            MES - 1,
+            DIA,
+            HORA,
+            MINUTO,
+            0,
+        ).getTime();
+
+        const elDias = document.getElementById("cont-dias")!;
+        const elHoras = document.getElementById("cont-horas")!;
+        const elMinutos = document.getElementById("cont-minutos")!;
+        const elSegundos = document.getElementById("cont-segundos")!;
+
+        function actualizar() {
+            const diff = fechaEvento - Date.now();
+
+            if (diff <= 0) {
+                elDias.textContent =
+                    elHoras.textContent =
+                    elMinutos.textContent =
+                    elSegundos.textContent =
+                        "00";
+                return;
+            }
+
+            elDias.textContent = String(Math.floor(diff / 86400000)).padStart(
+                2,
+                "0",
+            );
+            elHoras.textContent = String(
+                Math.floor((diff % 86400000) / 3600000),
+            ).padStart(2, "0");
+            elMinutos.textContent = String(
+                Math.floor((diff % 3600000) / 60000),
+            ).padStart(2, "0");
+            elSegundos.textContent = String(
+                Math.floor((diff % 60000) / 1000),
+            ).padStart(2, "0");
+        }
+
+        actualizar();
+        setInterval(actualizar, 1000);
+    });
+</script>

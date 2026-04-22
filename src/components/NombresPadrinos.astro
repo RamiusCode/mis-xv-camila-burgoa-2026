@@ -1,0 +1,61 @@
+---
+// NombresPadrinos.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] py-[15px]"
+>
+    <div class="relative w-full max-w-[420px] flex flex-col items-center gap-0">
+        <!-- SEPARADOR SUPERIOR -->
+        <img
+            src="/imagenes/separador.png"
+            alt=""
+            class="pointer-events-none select-none w-[250px] h-auto mb-[8px]"
+        />
+
+        <!-- TÍTULO "Mis Padrinos" -->
+        <h2 class="font-great-vibes text-[38px] text-[#1a6b6a] m-0">
+            Mis Padrinos
+        </h2>
+
+        <!-- MARCO con lámparas en esquinas -->
+        <div class="relative w-[85%]">
+            <!-- LÁMPARA inferior izquierda → cambia w-[90px] para tamaño -->
+            <img
+                src="/imagenes/lampara.png"
+                alt=""
+                class="absolute bottom-0 left-0 z-[20] w-[90px] h-auto pointer-events-none select-none -translate-x-1/2 scale-x-[-1]"
+            />
+
+            <!-- LÁMPARA inferior derecha -->
+            <img
+                src="/imagenes/lampara.png"
+                alt=""
+                class="absolute bottom-0 right-0 z-[20] w-[90px] h-auto pointer-events-none select-none translate-x-1/2"
+            />
+
+            <!-- IMAGEN DEL MARCO -->
+            <img
+                src="/imagenes/marco2.png"
+                alt=""
+                class="w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- NOMBRES DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-[15%] py-[10%]"
+            >
+                <p
+                    class="font-charm text-[20px] text-[#1a6b6a] text-center m-0 leading-relaxed"
+                >
+                    José Robles
+                </p>
+                <p
+                    class="font-charm text-[20px] text-[#1a6b6a] text-center m-0 leading-relaxed"
+                >
+                    Nathaly Rivero
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+---
+// Fecha.astro
+---
+
+<div
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
+>
+    <div class="relative w-full max-w-[400px] flex items-center justify-center">
+        <!-- BOTELLA izquierda → cambia bottom-[-10%] para bajar más -->
+        <img
+            src="/imagenes/botella.png"
+            alt="Botella"
+            class="absolute -left-[6%] bottom-[-10%] z-[15] pointer-events-none select-none w-[65px] h-auto"
+        />
+
+        <!-- CHICA derecha → cambia bottom-[-15%] para bajar más -->
+        <img
+            src="/imagenes/chica.png"
+            alt="Personaje"
+            class="absolute right-[-10%] bottom-[-15%] z-[15] pointer-events-none select-none w-[150px] h-auto"
+        />
+
+        <!-- MARCO → w-full para que sea más grande -->
+        <div class="relative w-full">
+            <!-- IMAGEN DEL MARCO -->
+            <img
+                src="/imagenes/marco4.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- TEXTO DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center px-[14%] pt-[30%]"
+            >
+                <!-- CONTEXTO TEMÁTICO -->
+                <p
+                    class="font-cormorant-sc text-[10px] uppercase tracking-[0.35em] text-[#1a6b6a]/80 m-0"
+                >
+                    ✦ Una noche mágica ✦
+                </p>
+
+                <!-- DÍA DE LA SEMANA -->
+                <p
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#1a6b6a] m-0 font-bold leading-none"
+                >
+                    Sábado
+                </p>
+
+                <!-- NÚMERO → protagonista -->
+                <p
+                    class="font-great-vibes text-[90px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]"
+                >
+                    9
+                </p>
+
+                <!-- MES -->
+                <p
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#1a6b6a] m-0 font-bold leading-none"
+                >
+                    Mayo
+                </p>
+
+                <!-- AÑO -->
+                <p
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#1a6b6a]/70 m-0 font-bold leading-none mt-[2px]"
+                >
+                    2026
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
