@@ -269,6 +269,78 @@ const { title } = Astro.props;
           });
         });
       });
+
+      // ── CRÍTICO PARA PRODUCCIÓN (Vercel) ──
+      // Las imágenes tardan en llegar → alturas incorrectas al registrar triggers.
+      // Cuando todo carga, recalculamos posiciones y disparamos animaciones
+      // para cualquier elemento que ya esté visible en pantalla.
+      window.addEventListener("load", () => {
+        // 1. Recalcular posiciones de TODOS los ScrollTriggers
+        ScrollTrigger.refresh();
+
+        // 2. Después del refresh: revelar cualquier elemento animado
+        //    que ya esté en el viewport pero siga invisible (opacity≈0)
+        setTimeout(() => {
+          // Selectores de todos los contenedores de componentes con animación GSAP
+          const selectores = [
+            "[data-entrada]",
+            "#acoded-contenedor",
+            "#padres-contenedor",
+            "#padrinos-contenedor",
+            "#cont-contenedor",
+            "#fecha-contenedor",
+            "#hora-contenedor",
+            "#dir-contenedor",
+            "#cv-contenedor",
+            "#sug-contenedor",
+            "#rest-contenedor",
+            "#conf-contenedor",
+            "#cal-contenedor",
+            ".titulo-itinerario",
+            "#eventos-container",
+          ].join(",");
+
+          document.querySelectorAll(selectores).forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const style = window.getComputedStyle(el);
+            const opacidad = parseFloat(style.opacity);
+            // Si está en viewport y sigue invisible, animarlo
+            if (rect.top < window.innerHeight && opacidad < 0.1) {
+              gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power2.out",
+              });
+            }
+          });
+        }, 200);
+
+        // 3. Fallback de seguridad absoluta: después de 3s, si algún
+        //    descendiente de los contenedores sigue con opacity=0, lo revelamos.
+        //    Esto garantiza que NUNCA quede nada invisible en producción.
+        setTimeout(() => {
+          const todosLosContenedores = document.querySelectorAll(
+            "#acoded-contenedor, #padres-contenedor, #padrinos-contenedor, " +
+            "#cont-contenedor, #fecha-contenedor, #hora-contenedor, " +
+            "#dir-contenedor, #cv-contenedor, #sug-contenedor, " +
+            "#rest-contenedor, #conf-contenedor, #cal-contenedor, " +
+            "[data-entrada]"
+          );
+          todosLosContenedores.forEach((cont) => {
+            // Si el contenedor sigue invisible, animarlo (junto a todos sus hijos)
+            gsap.to(cont, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.5 });
+            cont.querySelectorAll("*").forEach((hijo) => {
+              const op = parseFloat(window.getComputedStyle(hijo).opacity);
+              if (op < 0.05) {
+                gsap.to(hijo, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.5 });
+              }
+            });
+          });
+        }, 3000);
+      });
     </script>
   </body>
 </html>
