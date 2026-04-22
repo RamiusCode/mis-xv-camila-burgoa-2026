@@ -4,7 +4,7 @@
 
 <div
     id="hora-contenedor"
-    class="relative w-full overflow-hidden flex items-center justify-center px-4 pt-0 pb-10"
+    class="relative w-full flex items-center justify-center px-4 pt-0 pb-10"
 >
     <div
         class="relative w-full max-w-[400px] flex flex-col items-center justify-center"
@@ -92,13 +92,11 @@
         tl.to(numero,    { scale: 1, opacity: 1, duration: 0.9, ease: "back.out(1.4)" }, 0);
         tl.to(pm,        { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

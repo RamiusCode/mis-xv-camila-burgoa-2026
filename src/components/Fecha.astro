@@ -4,7 +4,7 @@
 
 <div
     id="fecha-contenedor"
-    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
+    class="relative w-full flex items-center justify-center px-4 py-10"
 >
     <div class="relative w-full max-w-[400px] flex items-center justify-center">
         <!-- BOTELLA izquierda -->
@@ -114,13 +114,11 @@
         tl.to(mes,     { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(anio,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

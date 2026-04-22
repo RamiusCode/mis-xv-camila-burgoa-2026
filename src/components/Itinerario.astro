@@ -379,97 +379,95 @@
     gsap.set(".imagen-der", { x: 60 });
     gsap.set(".texto-der", { x: 60 });
 
-    window.addEventListener("load", () => {
-        ScrollTrigger.create({
-            trigger: ".titulo-itinerario",
-            start: "top 98%",
-            once: true,
-            onEnter: () => {
-                gsap.to(".titulo-itinerario", {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: "power3.out",
-                });
-            },
-        });
+    ScrollTrigger.create({
+        trigger: ".titulo-itinerario",
+        start: "top 98%",
+        once: true,
+        onEnter: () => {
+            gsap.to(".titulo-itinerario", {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out",
+            });
+        },
+    });
 
-        ScrollTrigger.create({
-            trigger: "#eventos-container",
-            start: "top 98%",
-            end: "top 20%",
-            onEnter: () => {
-                const tl = gsap.timeline();
-                tl.to(
-                    ".linea-central",
+    ScrollTrigger.create({
+        trigger: "#eventos-container",
+        start: "top 98%",
+        end: "top 20%",
+        onEnter: () => {
+            const tl = gsap.timeline();
+            tl.to(
+                ".linea-central",
+                {
+                    opacity: 1,
+                    scaleY: 1,
+                    duration: 1.5,
+                    ease: "power2.out",
+                    transformOrigin: "top center",
+                },
+                0,
+            )
+                .to(
+                    ".corazon-item",
                     {
                         opacity: 1,
-                        scaleY: 1,
-                        duration: 1.5,
-                        ease: "power2.out",
+                        scale: 1,
+                        duration: 0.8,
+                        ease: "back.out(1.7)",
+                    },
+                    0,
+                )
+                .to(
+                    ".evento-item",
+                    { opacity: 1, duration: 1, ease: "power3.out" },
+                    0,
+                )
+                .to(
+                    ".imagen-izq, .texto-izq",
+                    { x: 0, duration: 1, ease: "power3.out" },
+                    0,
+                )
+                .to(
+                    ".imagen-der, .texto-der",
+                    { x: 0, duration: 1, ease: "power3.out" },
+                    0,
+                );
+        },
+        onLeaveBack: () => {
+            const tl = gsap.timeline();
+            tl.to(
+                ".linea-central, .corazon-item, .evento-item",
+                { opacity: 0, duration: 0.4, ease: "power2.in" },
+                0,
+            )
+                .to(
+                    ".linea-central",
+                    {
+                        scaleY: 0,
+                        duration: 0.4,
+                        ease: "power2.in",
                         transformOrigin: "top center",
                     },
                     0,
                 )
-                    .to(
-                        ".corazon-item",
-                        {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.8,
-                            ease: "back.out(1.7)",
-                        },
-                        0,
-                    )
-                    .to(
-                        ".evento-item",
-                        { opacity: 1, duration: 1, ease: "power3.out" },
-                        0,
-                    )
-                    .to(
-                        ".imagen-izq, .texto-izq",
-                        { x: 0, duration: 1, ease: "power3.out" },
-                        0,
-                    )
-                    .to(
-                        ".imagen-der, .texto-der",
-                        { x: 0, duration: 1, ease: "power3.out" },
-                        0,
-                    );
-            },
-            onLeaveBack: () => {
-                const tl = gsap.timeline();
-                tl.to(
-                    ".linea-central, .corazon-item, .evento-item",
-                    { opacity: 0, duration: 0.4, ease: "power2.in" },
+                .to(
+                    ".corazon-item",
+                    { scale: 0, duration: 0.4, ease: "power2.in" },
                     0,
                 )
-                    .to(
-                        ".linea-central",
-                        {
-                            scaleY: 0,
-                            duration: 0.4,
-                            ease: "power2.in",
-                            transformOrigin: "top center",
-                        },
-                        0,
-                    )
-                    .to(
-                        ".corazon-item",
-                        { scale: 0, duration: 0.4, ease: "power2.in" },
-                        0,
-                    )
-                    .to(
-                        ".imagen-izq, .texto-izq",
-                        { x: -60, duration: 0.4, ease: "power2.in" },
-                        0,
-                    )
-                    .to(
-                        ".imagen-der, .texto-der",
-                        { x: 60, duration: 0.4, ease: "power2.in" },
-                        0,
-                    );
-            },
-        });
+                .to(
+                    ".imagen-izq, .texto-izq",
+                    { x: -60, duration: 0.4, ease: "power2.in" },
+                    0,
+                )
+                .to(
+                    ".imagen-der, .texto-der",
+                    { x: 60, duration: 0.4, ease: "power2.in" },
+                    0,
+                );
+        },
     });
 </script>

@@ -55,13 +55,11 @@
         tl.to(marco,   { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(texto,   { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

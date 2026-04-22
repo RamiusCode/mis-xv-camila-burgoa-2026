@@ -4,7 +4,7 @@
 
 <section
     id="sug-contenedor"
-    class="py-10 md:py-14 px-4 relative overflow-hidden flex flex-col items-center"
+    class="py-10 md:py-14 px-4 relative flex flex-col items-center"
 >
     <!-- TÍTULO -->
     <div id="sug-titulo" class="mb-4 text-center">
@@ -112,13 +112,11 @@
         tl.to(linea,     { scaleX: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(sobres,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

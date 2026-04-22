@@ -11,7 +11,7 @@
 
 <div
     id="cv-contenedor"
-    class="relative w-full overflow-hidden flex items-center justify-center px-0 pt-0 pb-10"
+    class="relative w-full flex items-center justify-center px-0 pt-0 pb-10"
 >
     <div class="relative w-full max-w-[650px] flex flex-col items-center">
 
@@ -126,13 +126,11 @@
         tl.to(subtit,   { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(reserva,  { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

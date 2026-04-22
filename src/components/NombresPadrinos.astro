@@ -4,7 +4,7 @@
 
 <div
     id="padrinos-contenedor"
-    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] py-[15px]"
+    class="relative w-full flex items-center justify-center px-[16px] py-[15px]"
 >
     <div class="relative w-full max-w-[420px] flex flex-col items-center gap-0">
         <!-- SEPARADOR SUPERIOR -->
@@ -101,13 +101,11 @@
         tl.to(marco,      { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(nombres,    { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

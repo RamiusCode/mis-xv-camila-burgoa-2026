@@ -4,7 +4,7 @@
 
 <div
     id="acoded-contenedor"
-    class="relative w-full overflow-hidden flex items-center justify-center px-[24px] py-[40px]"
+    class="relative w-full flex items-center justify-center px-[24px] py-[40px]"
 >
     <div
         class="relative z-10 flex flex-col items-center justify-center text-center gap-6 max-w-[400px]"
@@ -90,16 +90,11 @@
         }
         tl.to(textoInf, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => {
-                    tl.pause(0);
-                reset();
-            },
-        });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>

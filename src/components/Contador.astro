@@ -4,7 +4,7 @@
 
 <div
     id="cont-contenedor"
-    class="relative w-full overflow-hidden flex flex-col items-center justify-center px-[16px] py-[40px]"
+    class="relative w-full flex flex-col items-center justify-center px-[16px] py-[40px]"
 >
     <div class="relative w-full max-w-[400px] flex flex-col items-center">
         <img
@@ -128,19 +128,17 @@
         tl.to(titulo,    { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
         tl.to(numeros,   { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        window.addEventListener("load", () => {
-            ScrollTrigger.create({
-                trigger: contenedor,
-                start: "top 98%",
-                onEnter: () => tl.restart(),
-                onLeaveBack: () => { tl.pause(0); reset(); },
-            });
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 98%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
         });
     }
 </script>
 
 <script>
-    window.addEventListener("load", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         // ── FECHA DEL EVENTO ── cambia cada valor por separado
         const AÑO = 2026; // ← año
         const MES = 5; // ← mes (1=enero, 5=mayo, 12=diciembre)
