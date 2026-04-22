@@ -20,7 +20,7 @@
         <!-- TEXTO SUPERIOR -->
         <p
             id="acoded-texto-sup"
-            class="font-crimson text-lg uppercase text-[#1a6b6a] leading-relaxed m-0"
+            class="font-crimson text-lg uppercase text-[#07c4c7] leading-relaxed m-0"
         >
             TENEMOS EL AGRADO DE INVITARTE A CELEBRAR LOS 15 AÑOS DE NUESTRA
             QUERIDA HIJA
@@ -37,7 +37,7 @@
         <!-- TEXTO INFERIOR -->
         <p
             id="acoded-texto-inf"
-            class="font-crimson text-lg uppercase text-[#1a6b6a] leading-relaxed m-0"
+            class="font-crimson text-lg uppercase text-[#07c4c7] leading-relaxed m-0"
         >
             ACOMPÁÑANOS EN ESTE DÍA TAN ESPECIAL, LLENO DE AMOR Y ALEGRÍA
         </p>
@@ -59,45 +59,64 @@
     });
 
     // Lámpara cae suave desde arriba
-    tl.from("#acoded-lampara", {
-        y: -30,
-        opacity: 0,
-        duration: 1.2,
-        ease: "sine.out",
-    }, 0);
+    tl.from(
+        "#acoded-lampara",
+        {
+            y: -30,
+            opacity: 0,
+            duration: 1.2,
+            ease: "sine.out",
+        },
+        0,
+    );
 
     // Texto superior sube suave
-    tl.from("#acoded-texto-sup", {
-        y: 20,
-        opacity: 0,
-        duration: 1.0,
-        ease: "sine.out",
-    }, 0.3);
+    tl.from(
+        "#acoded-texto-sup",
+        {
+            y: 20,
+            opacity: 0,
+            duration: 1.0,
+            ease: "sine.out",
+        },
+        0.3,
+    );
 
     // Nombre letra por letra
     const h1 = document.querySelector<HTMLElement>("#acoded-nombre");
     if (h1) {
         const texto = h1.textContent ?? "";
-        h1.innerHTML = texto.split("").map(c =>
-            c === " "
-                ? `<span style="display:inline-block">&nbsp;</span>`
-                : `<span style="display:inline-block">${c}</span>`
-        ).join("");
+        h1.innerHTML = texto
+            .split("")
+            .map((c) =>
+                c === " "
+                    ? `<span style="display:inline-block">&nbsp;</span>`
+                    : `<span style="display:inline-block">${c}</span>`,
+            )
+            .join("");
 
-        tl.from(h1.querySelectorAll("span"), {
-            opacity: 0,
-            y: 3,
-            duration: 0.5,
-            stagger: 0.09,
-            ease: "sine.out",
-        }, 0.6);
+        tl.from(
+            h1.querySelectorAll("span"),
+            {
+                opacity: 0,
+                y: 3,
+                duration: 0.5,
+                stagger: 0.09,
+                ease: "sine.out",
+            },
+            0.6,
+        );
     }
 
     // Texto inferior sube suave
-    tl.from("#acoded-texto-inf", {
-        y: 20,
-        opacity: 0,
-        duration: 1.0,
-        ease: "sine.out",
-    }, 1.0);
+    tl.from(
+        "#acoded-texto-inf",
+        {
+            y: 20,
+            opacity: 0,
+            duration: 1.0,
+            ease: "sine.out",
+        },
+        1.0,
+    );
 </script>
