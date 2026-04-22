@@ -101,16 +101,16 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initDireccion = () => {
-        const contenedor = document.getElementById("dir-contenedor");
-        const p6         = document.getElementById("dir-personaje6");
-        const p7         = document.getElementById("dir-personaje7");
-        const marco      = document.getElementById("dir-marco");
-        const icono      = document.getElementById("dir-icono");
-        const salon      = document.getElementById("dir-salon");
-        const direccion  = document.getElementById("dir-direccion");
-        const boton      = document.getElementById("dir-boton");
-        if (!contenedor) return;
+    const contenedor = document.getElementById("dir-contenedor");
+
+    if (contenedor) {
+        const p6       = document.getElementById("dir-personaje6");
+        const p7       = document.getElementById("dir-personaje7");
+        const marco    = document.getElementById("dir-marco");
+        const icono    = document.getElementById("dir-icono");
+        const salon    = document.getElementById("dir-salon");
+        const direccion = document.getElementById("dir-direccion");
+        const boton    = document.getElementById("dir-boton");
 
         const reset = () => {
             gsap.set(p6,       { x: -80, opacity: 0 });
@@ -124,33 +124,21 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
+        tl.to(p6,       { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.to(p7,       { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(marco,    { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(icono,    { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(salon,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(direccion,{ y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(boton,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        // 1. Personaje6 entra desde la izquierda
-        tl.to(p6, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-
-        // 2. Marco aparece con scale
-        tl.to(marco, { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, "0.3");
-
-        // 3. Ícono + salón aparecen
-        tl.to(icono,  { opacity: 1, duration: 0.6, ease: "power2.out" }, "0.7");
-        tl.to(salon,  { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "0.8");
-
-        // 4. Dirección
-        tl.to(direccion, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "1.1");
-
-        // 5. Personaje7 sube y aparece
-        tl.to(p7, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "1.0");
-
-        // 6. Botón sube suave
-        tl.to(boton, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "1.4");
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        window.addEventListener("load", () => {
+            ScrollTrigger.create({
+                trigger: contenedor,
+                start: "top 98%",
+                onEnter: () => tl.restart(),
+                onLeaveBack: () => { tl.pause(0); reset(); },
+            });
         });
-    };
-
-    document.addEventListener("DOMContentLoaded", initDireccion);
+    }
 </script>

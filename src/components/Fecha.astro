@@ -80,10 +80,9 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initFecha = () => {
-        const contenedor = document.getElementById("fecha-contenedor");
-        if (!contenedor) return;
+    const contenedor = document.getElementById("fecha-contenedor");
 
+    if (contenedor) {
         const botella = document.getElementById("fecha-botella");
         const chica   = document.getElementById("fecha-chica");
         const marco   = document.getElementById("fecha-marco");
@@ -106,28 +105,22 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
+        tl.to(botella, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.to(chica,   { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.to(marco,   { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(magica,  { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(dia,     { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(numero,  { scale: 1, opacity: 1, duration: 0.9, ease: "back.out(1.4)" }, 0);
+        tl.to(mes,     { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(anio,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        // 1. Botella + Chica entran desde los lados
-        tl.to(botella, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-        tl.to(chica,   { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-
-        // 2. Marco aparece
-        tl.to(marco, { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.3);
-
-        // 3. Textos aparecen en cascada elegante
-        tl.to(magica,  { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.7);
-        tl.to(dia,     { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.85);
-        tl.to(numero,  { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 1.0);
-        tl.to(mes,     { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 1.15);
-        tl.to(anio,    { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.25);
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        window.addEventListener("load", () => {
+            ScrollTrigger.create({
+                trigger: contenedor,
+                start: "top 98%",
+                onEnter: () => tl.restart(),
+                onLeaveBack: () => { tl.pause(0); reset(); },
+            });
         });
-    };
-
-    document.addEventListener("DOMContentLoaded", initFecha);
+    }
 </script>

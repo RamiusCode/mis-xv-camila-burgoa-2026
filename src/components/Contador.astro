@@ -106,10 +106,9 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initContador = () => {
-        const contenedor = document.getElementById("cont-contenedor");
-        if (!contenedor) return;
+    const contenedor = document.getElementById("cont-contenedor");
 
+    if (contenedor) {
         const personaje = document.getElementById("cont-personaje");
         const caja      = document.getElementById("cont-caja");
         const titulo    = document.getElementById("cont-titulo");
@@ -124,32 +123,24 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
+        tl.to(personaje, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.to(caja,      { y: 0, scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(titulo,    { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(numeros,   { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        // 1. Personaje cae desde arriba
-        tl.to(personaje, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-
-        // 2. Caja sube y escala
-        tl.to(caja, { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.35);
-
-        // 3. Título "Falta"
-        tl.to(titulo, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.75);
-
-        // 4. Números aparecen
-        tl.to(numeros, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.95);
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        window.addEventListener("load", () => {
+            ScrollTrigger.create({
+                trigger: contenedor,
+                start: "top 98%",
+                onEnter: () => tl.restart(),
+                onLeaveBack: () => { tl.pause(0); reset(); },
+            });
         });
-    };
-
-    document.addEventListener("DOMContentLoaded", initContador);
+    }
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("load", () => {
         // ── FECHA DEL EVENTO ── cambia cada valor por separado
         const AÑO = 2026; // ← año
         const MES = 5; // ← mes (1=enero, 5=mayo, 12=diciembre)

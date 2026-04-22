@@ -370,16 +370,16 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initItinerario = () => {
-        gsap.set(".titulo-itinerario", { opacity: 0, y: -30 });
-        gsap.set(".linea-central", { opacity: 0, scaleY: 0 });
-        gsap.set(".corazon-item", { opacity: 0, scale: 0 });
-        gsap.set(".evento-item", { opacity: 0 });
-        gsap.set(".imagen-izq", { x: -60 });
-        gsap.set(".texto-izq", { x: -60 });
-        gsap.set(".imagen-der", { x: 60 });
-        gsap.set(".texto-der", { x: 60 });
+    gsap.set(".titulo-itinerario", { opacity: 0, y: -30 });
+    gsap.set(".linea-central", { opacity: 0, scaleY: 0 });
+    gsap.set(".corazon-item", { opacity: 0, scale: 0 });
+    gsap.set(".evento-item", { opacity: 0 });
+    gsap.set(".imagen-izq", { x: -60 });
+    gsap.set(".texto-izq", { x: -60 });
+    gsap.set(".imagen-der", { x: 60 });
+    gsap.set(".texto-der", { x: 60 });
 
+    window.addEventListener("load", () => {
         ScrollTrigger.create({
             trigger: ".titulo-itinerario",
             start: "top 98%",
@@ -471,8 +471,5 @@
                     );
             },
         });
-    };
-
-    document.addEventListener("DOMContentLoaded", initItinerario);
-    document.addEventListener("astro:page-load", initItinerario);
+    });
 </script>

@@ -36,54 +36,32 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initRestriccion = () => {
-        const contenedor = document.getElementById("rest-contenedor");
-        if (!contenedor) return;
+    const contenedor = document.getElementById("rest-contenedor");
 
+    if (contenedor) {
         const lampara = document.getElementById("rest-lampara");
-        const marco = document.getElementById("rest-marco");
-        const texto = document.getElementById("rest-texto");
+        const marco   = document.getElementById("rest-marco");
+        const texto   = document.getElementById("rest-texto");
 
         const reset = () => {
             gsap.set(lampara, { x: -60, opacity: 0 });
-            gsap.set(marco, { scale: 0.92, opacity: 0 });
-            gsap.set(texto, { y: 16, opacity: 0 });
+            gsap.set(marco,   { scale: 0.92, opacity: 0 });
+            gsap.set(texto,   { y: 16, opacity: 0 });
         };
         reset();
 
         const tl = gsap.timeline({ paused: true });
+        tl.to(lampara, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.to(marco,   { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+        tl.to(texto,   { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
 
-        // 1. Lámpara entra desde la izquierda
-        tl.to(
-            lampara,
-            { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
-            0,
-        );
-
-        // 2. Marco escala
-        tl.to(
-            marco,
-            { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" },
-            0.25,
-        );
-
-        // 3. Texto sube suave
-        tl.to(
-            texto,
-            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
-            0.7,
-        );
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => {
-                tl.pause(0);
-                reset();
-            },
+        window.addEventListener("load", () => {
+            ScrollTrigger.create({
+                trigger: contenedor,
+                start: "top 98%",
+                onEnter: () => tl.restart(),
+                onLeaveBack: () => { tl.pause(0); reset(); },
+            });
         });
-    };
-
-    document.addEventListener("DOMContentLoaded", initRestriccion);
+    }
 </script>
