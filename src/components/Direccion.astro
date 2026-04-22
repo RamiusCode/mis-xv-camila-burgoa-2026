@@ -11,6 +11,7 @@
 </style>
 
 <div
+    id="dir-contenedor"
     class="relative w-full overflow-hidden flex items-center justify-center px-0 pt-0 pb-10"
 >
     <div class="relative w-full max-w-[650px] flex flex-col items-center">
@@ -18,13 +19,15 @@
         <div class="relative w-full">
             <!-- PERSONAJE6 (abajo izquierda) -->
             <img
+                id="dir-personaje6"
                 src="/imagenes/personaje6.png"
                 alt="Personaje"
                 class="absolute bottom-[-5%] left-[-10%] z-[15] pointer-events-none select-none w-[140px] h-auto"
             />
 
-            <!-- PERSONAJE7 (abajo derecha) -->
+            <!-- PERSONAJE7 (abajo derecha) — flota suave -->
             <img
+                id="dir-personaje7"
                 src="/imagenes/personaje7.png"
                 alt="Personaje"
                 class="absolute bottom-[-5%] right-[-8%] z-[15] pointer-events-none select-none w-[100px] h-auto"
@@ -32,6 +35,7 @@
 
             <!-- MARCO -->
             <img
+                id="dir-marco"
                 src="/imagenes/marco5.png"
                 alt=""
                 class="relative z-[10] w-full h-auto block pointer-events-none select-none"
@@ -39,24 +43,27 @@
 
             <!-- TEXTO DENTRO DEL MARCO -->
             <div
+                id="dir-icono"
                 class="absolute inset-0 z-[12] flex flex-col items-center justify-center gap-0 px-[18%] pt-[15%] pb-[10%]"
             >
-                <!-- ÍCONO UBICACIÓN → cambia w-[32px] para tamaño -->
+                <!-- ÍCONO UBICACIÓN -->
                 <img
                     src="/imagenes/ubicacion.png"
                     alt=""
                     class="icono-dorado w-[32px] h-auto pointer-events-none select-none mb-[4px]"
                 />
 
-                <!-- SALÓN → dorado y grande para que resalte -->
+                <!-- SALÓN -->
                 <p
+                    id="dir-salon"
                     class="font-great-vibes text-[32px] text-[#c8960c] text-center m-0 leading-tight [text-shadow:0_2px_12px_rgba(200,150,12,0.35)]"
                 >
                     Salón de Eventos Elianne 3
                 </p>
 
-                <!-- DIRECCIÓN → debajo, más pequeña y discreta -->
+                <!-- DIRECCIÓN -->
                 <p
+                    id="dir-direccion"
                     class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed mt-[4px]"
                 >
                     Séptimo anillo, Av. Santos Dumont,<br />calle Bibosi
@@ -64,8 +71,9 @@
             </div>
         </div>
 
-        <!-- BOTÓN UBICACIÓN → cambia el href por el link real de Google Maps -->
+        <!-- BOTÓN -->
         <a
+            id="dir-boton"
             href="https://maps.app.goo.gl/1xvEWDaJJMy2WE1JA"
             target="_blank"
             rel="noopener noreferrer"
@@ -87,3 +95,62 @@
         </a>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const initDireccion = () => {
+        const contenedor = document.getElementById("dir-contenedor");
+        const p6         = document.getElementById("dir-personaje6");
+        const p7         = document.getElementById("dir-personaje7");
+        const marco      = document.getElementById("dir-marco");
+        const icono      = document.getElementById("dir-icono");
+        const salon      = document.getElementById("dir-salon");
+        const direccion  = document.getElementById("dir-direccion");
+        const boton      = document.getElementById("dir-boton");
+        if (!contenedor) return;
+
+        const reset = () => {
+            gsap.set(p6,       { x: -80, opacity: 0 });
+            gsap.set(p7,       { y: 30, opacity: 0 });
+            gsap.set(marco,    { scale: 0.93, opacity: 0 });
+            gsap.set(icono,    { opacity: 0 });
+            gsap.set(salon,    { y: 16, opacity: 0 });
+            gsap.set(direccion,{ y: 16, opacity: 0 });
+            gsap.set(boton,    { y: 20, opacity: 0 });
+        };
+        reset();
+
+        const tl = gsap.timeline({ paused: true });
+
+        // 1. Personaje6 entra desde la izquierda
+        tl.to(p6, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+
+        // 2. Marco aparece con scale
+        tl.to(marco, { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, "0.3");
+
+        // 3. Ícono + salón aparecen
+        tl.to(icono,  { opacity: 1, duration: 0.6, ease: "power2.out" }, "0.7");
+        tl.to(salon,  { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "0.8");
+
+        // 4. Dirección
+        tl.to(direccion, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "1.1");
+
+        // 5. Personaje7 sube y aparece
+        tl.to(p7, { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "1.0");
+
+        // 6. Botón sube suave
+        tl.to(boton, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "1.4");
+
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 85%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initDireccion);
+</script>

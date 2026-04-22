@@ -1,0 +1,107 @@
+---
+// Confirmar.astro
+---
+
+<div
+    id="conf-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
+>
+    <div class="relative w-full max-w-[550px] flex flex-col items-center">
+        <div class="relative w-full">
+            <img
+                id="conf-marco"
+                src="/imagenes/marco5.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <div
+                id="conf-contenido"
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center px-[18%] pt-[5%]"
+            >
+                <p
+                    class="font-crimson text-[18px] md:text-[21px] text-[#0f4c5c] text-center m-0 leading-relaxed italic"
+                >
+                    Será un verdadero placer contar con tu presencia en este día
+                    tan especial.
+                    <br />
+                    Tu compañía significa mucho para nosotros.
+                </p>
+            </div>
+        </div>
+
+        <a
+            id="conf-boton"
+            href="https://wa.link/dzqoak"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-[20px] flex items-center justify-center px-8 py-3
+                   bg-[#c8960c] text-white
+                   font-cormorant-sc text-[14px] uppercase tracking-[0.25em]
+                   rounded-full
+                   [box-shadow:0_4px_0_#8a6408,0_6px_12px_rgba(200,150,12,0.4)]
+                   active:[box-shadow:0_1px_0_#8a6408,0_2px_4px_rgba(200,150,12,0.3)]
+                   active:translate-y-[3px]
+                   transition-all duration-150"
+        >
+            Confirmar Asistencia
+        </a>
+
+        <p
+            id="conf-esperamos"
+            class="font-great-vibes text-[32px] text-[#c8960c] mt-4 m-0"
+        >
+            ¡Te esperamos!
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const initConfirmar = () => {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
+
+        const marco     = document.getElementById("conf-marco");
+        const contenido = document.getElementById("conf-contenido");
+        const boton     = document.getElementById("conf-boton");
+        const esperamos = document.getElementById("conf-esperamos");
+
+        const reset = () => {
+            gsap.set(marco,     { scale: 0.93, opacity: 0 });
+            gsap.set(contenido, { y: 16, opacity: 0 });
+            gsap.set(boton,     { y: 20, opacity: 0 });
+            gsap.set(esperamos, { y: 20, opacity: 0 });
+        };
+        reset();
+
+        const tl = gsap.timeline({ paused: true });
+
+        // 1. Marco escala y aparece
+        tl.to(marco,     { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
+
+        // 2. Texto sube suave
+        tl.to(contenido, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.5);
+
+        // 3. Botón sube
+        tl.to(boton,     { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 0.9);
+
+        // 4. "¡Te esperamos!" sube
+        tl.to(esperamos, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 1.2);
+
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 85%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => {
+                tl.pause(0);
+                reset();
+            },
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initConfirmar);
+</script>

@@ -47,7 +47,7 @@
             id="texto-nombre"
             class="m-0 font-great-vibes pt-10 font-normal text-[#c8960c] whitespace-nowrap text-[52px] leading-[1.1]"
         >
-            Camila Burgos
+            Camila Burgoa
         </h1>
     </div>
 
@@ -69,6 +69,7 @@
 
     <!-- SEPARADOR → cambia w-[300px] para el ancho -->
     <img
+        id="separador-flores"
         src="/imagenes/separador.png"
         alt=""
         class="pointer-events-none select-none w-[250px] h-auto mt-[40px] mx-auto block"
@@ -175,6 +176,15 @@
             duration: 1.3,
             ease: "power2.out",
             delay: 1.7,
+        });
+
+        // Separador: aparece expandiéndose desde el centro
+        gsap.from("#separador-flores", {
+            opacity: 0,
+            scaleX: 0,
+            duration: 1.4,
+            ease: "power3.out",
+            delay: 1.8,
         });
 
         const btnAudio = document.getElementById(

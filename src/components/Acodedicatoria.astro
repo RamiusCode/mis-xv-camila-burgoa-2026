@@ -31,7 +31,7 @@
             id="acoded-nombre"
             class="font-great-vibes text-[52px] text-[#c8960c] leading-[1.1] m-0"
         >
-            Camila Burgos
+            Camila Burgoa
         </h1>
 
         <!-- TEXTO INFERIOR -->
@@ -47,76 +47,87 @@
 <script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
-
     gsap.registerPlugin(ScrollTrigger);
 
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: "#acoded-contenedor",
-            start: "top 80%",
-            toggleActions: "play none none none",
-        },
-    });
+    const initAcoded = () => {
+        const contenedor = document.getElementById("acoded-contenedor");
+        if (!contenedor) return;
 
-    // Lámpara cae suave desde arriba
-    tl.from(
-        "#acoded-lampara",
-        {
-            y: -30,
-            opacity: 0,
-            duration: 1.2,
-            ease: "sine.out",
-        },
-        0,
-    );
+        const lampara = document.getElementById("acoded-lampara");
+        const textoSup = document.getElementById("acoded-texto-sup");
+        const nombre = document.getElementById("acoded-nombre") as HTMLElement;
+        const textoInf = document.getElementById("acoded-texto-inf");
 
-    // Texto superior sube suave
-    tl.from(
-        "#acoded-texto-sup",
-        {
-            y: 20,
-            opacity: 0,
-            duration: 1.0,
-            ease: "sine.out",
-        },
-        0.3,
-    );
+        // Preparar letras del nombre
+        if (nombre) {
+            const texto = nombre.textContent ?? "";
+            nombre.innerHTML = texto
+                .split("")
+                .map((c) =>
+                    c === " "
+                        ? `<span style="display:inline-block">&nbsp;</span>`
+                        : `<span style="display:inline-block">${c}</span>`,
+                )
+                .join("");
+        }
 
-    // Nombre letra por letra
-    const h1 = document.querySelector<HTMLElement>("#acoded-nombre");
-    if (h1) {
-        const texto = h1.textContent ?? "";
-        h1.innerHTML = texto
-            .split("")
-            .map((c) =>
-                c === " "
-                    ? `<span style="display:inline-block">&nbsp;</span>`
-                    : `<span style="display:inline-block">${c}</span>`,
-            )
-            .join("");
+        const reset = () => {
+            gsap.set(lampara, { y: -40, opacity: 0 });
+            gsap.set(textoSup, { y: 20, opacity: 0 });
+            if (nombre)
+                gsap.set(nombre.querySelectorAll("span"), { y: 6, opacity: 0 });
+            gsap.set(textoInf, { y: 20, opacity: 0 });
+        };
+        reset();
 
-        tl.from(
-            h1.querySelectorAll("span"),
-            {
-                opacity: 0,
-                y: 3,
-                duration: 0.5,
-                stagger: 0.09,
-                ease: "sine.out",
-            },
-            0.6,
+        const tl = gsap.timeline({ paused: true });
+
+        // 1. Lámpara cae desde arriba
+        tl.to(
+            lampara,
+            { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
+            0,
         );
-    }
 
-    // Texto inferior sube suave
-    tl.from(
-        "#acoded-texto-inf",
-        {
-            y: 20,
-            opacity: 0,
-            duration: 1.0,
-            ease: "sine.out",
-        },
-        1.0,
-    );
+        // 2. Texto superior sube
+        tl.to(
+            textoSup,
+            { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" },
+            0.4,
+        );
+
+        // 3. Nombre letra por letra
+        if (nombre) {
+            tl.to(
+                nombre.querySelectorAll("span"),
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.07,
+                    ease: "sine.out",
+                },
+                0.75,
+            );
+        }
+
+        // 4. Texto inferior sube
+        tl.to(
+            textoInf,
+            { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" },
+            1.2,
+        );
+
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 80%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => {
+                tl.pause(0);
+                reset();
+            },
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initAcoded);
 </script>

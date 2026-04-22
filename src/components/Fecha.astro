@@ -3,27 +3,30 @@
 ---
 
 <div
+    id="fecha-contenedor"
     class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
 >
     <div class="relative w-full max-w-[400px] flex items-center justify-center">
-        <!-- BOTELLA izquierda → cambia bottom-[-10%] para bajar más -->
+        <!-- BOTELLA izquierda -->
         <img
+            id="fecha-botella"
             src="/imagenes/botella.png"
             alt="Botella"
             class="absolute -left-[6%] bottom-[-10%] z-[15] pointer-events-none select-none w-[65px] h-auto"
         />
 
-        <!-- CHICA derecha → cambia bottom-[-15%] para bajar más -->
+        <!-- CHICA derecha -->
         <img
+            id="fecha-chica"
             src="/imagenes/chica.png"
             alt="Personaje"
             class="absolute right-[-10%] bottom-[-15%] z-[15] pointer-events-none select-none w-[150px] h-auto"
         />
 
-        <!-- MARCO → w-full para que sea más grande -->
+        <!-- MARCO -->
         <div class="relative w-full">
-            <!-- IMAGEN DEL MARCO -->
             <img
+                id="fecha-marco"
                 src="/imagenes/marco4.png"
                 alt=""
                 class="relative z-[10] w-full h-auto block pointer-events-none select-none"
@@ -33,36 +36,36 @@
             <div
                 class="absolute inset-0 z-[12] flex flex-col items-center justify-center px-[14%] pt-[30%]"
             >
-                <!-- CONTEXTO TEMÁTICO -->
                 <p
+                    id="fecha-magica"
                     class="font-cormorant-sc text-[10px] uppercase tracking-[0.35em] text-[#07c4c7]/80 m-0"
                 >
                     ✦ Una noche mágica ✦
                 </p>
 
-                <!-- DÍA DE LA SEMANA -->
                 <p
+                    id="fecha-dia"
                     class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
                 >
                     Sábado
                 </p>
 
-                <!-- NÚMERO → protagonista -->
                 <p
+                    id="fecha-numero"
                     class="font-great-vibes text-[90px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]"
                 >
                     9
                 </p>
 
-                <!-- MES -->
                 <p
+                    id="fecha-mes"
                     class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
                 >
                     Mayo
                 </p>
 
-                <!-- AÑO -->
                 <p
+                    id="fecha-anio"
                     class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7]/70 m-0 font-bold leading-none mt-[2px]"
                 >
                     2026
@@ -71,3 +74,60 @@
         </div>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const initFecha = () => {
+        const contenedor = document.getElementById("fecha-contenedor");
+        if (!contenedor) return;
+
+        const botella = document.getElementById("fecha-botella");
+        const chica   = document.getElementById("fecha-chica");
+        const marco   = document.getElementById("fecha-marco");
+        const magica  = document.getElementById("fecha-magica");
+        const dia     = document.getElementById("fecha-dia");
+        const numero  = document.getElementById("fecha-numero");
+        const mes     = document.getElementById("fecha-mes");
+        const anio    = document.getElementById("fecha-anio");
+
+        const reset = () => {
+            gsap.set(botella, { x: -70, opacity: 0 });
+            gsap.set(chica,   { x:  70, opacity: 0 });
+            gsap.set(marco,   { scale: 0.92, opacity: 0 });
+            gsap.set(magica,  { opacity: 0 });
+            gsap.set(dia,     { y: 14, opacity: 0 });
+            gsap.set(numero,  { scale: 0.7, opacity: 0 });
+            gsap.set(mes,     { y: 14, opacity: 0 });
+            gsap.set(anio,    { y: 14, opacity: 0 });
+        };
+        reset();
+
+        const tl = gsap.timeline({ paused: true });
+
+        // 1. Botella + Chica entran desde los lados
+        tl.to(botella, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+        tl.to(chica,   { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+
+        // 2. Marco aparece
+        tl.to(marco, { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.3);
+
+        // 3. Textos aparecen en cascada elegante
+        tl.to(magica,  { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.7);
+        tl.to(dia,     { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.85);
+        tl.to(numero,  { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 1.0);
+        tl.to(mes,     { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 1.15);
+        tl.to(anio,    { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.25);
+
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 85%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initFecha);
+</script>

@@ -3,29 +3,31 @@
 ---
 
 <div
+    id="cont-contenedor"
     class="relative w-full overflow-hidden flex flex-col items-center justify-center px-[16px] py-[40px]"
 >
     <div class="relative w-full max-w-[400px] flex flex-col items-center">
-        <!-- PERSONAJE arriba, detrás del rectángulo → cambia w-[140px] para tamaño, mb-[-40px] para cuánto se oculta -->
         <img
+            id="cont-personaje"
             src="/imagenes/personaje4.png"
             alt="Personaje"
             class="relative z-[1] w-[140px] h-auto pointer-events-none select-none mb-[-20px]"
         />
 
-        <!-- RECTÁNGULO → cambia bg-[#1a6b6a] para el color, rounded-[16px] para bordes -->
         <div
+            id="cont-caja"
             class="relative z-[5] w-full rounded-[16px] bg-[#8cbdbc] py-[12px] px-[16px]"
         >
             <!-- TÍTULO → cambia text-[42px] para tamaño -->
             <h2
+                id="cont-titulo"
                 class="font-great-vibes text-[42px] text-[#ffffff] m-0 text-center mb-[4px]"
             >
                 Falta
             </h2>
 
             <!-- NÚMEROS -->
-            <div class="flex items-center justify-center gap-[12px]">
+            <div id="cont-numeros" class="flex items-center justify-center gap-[12px]">
                 <!-- DÍAS -->
                 <div class="flex flex-col items-center">
                     <!-- text-[40px] = tamaño número | font-light = delgado -->
@@ -98,6 +100,53 @@
         </div>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const initContador = () => {
+        const contenedor = document.getElementById("cont-contenedor");
+        if (!contenedor) return;
+
+        const personaje = document.getElementById("cont-personaje");
+        const caja      = document.getElementById("cont-caja");
+        const titulo    = document.getElementById("cont-titulo");
+        const numeros   = document.getElementById("cont-numeros");
+
+        const reset = () => {
+            gsap.set(personaje, { y: -50, opacity: 0 });
+            gsap.set(caja,      { y: 40, scale: 0.93, opacity: 0 });
+            gsap.set(titulo,    { opacity: 0 });
+            gsap.set(numeros,   { opacity: 0 });
+        };
+        reset();
+
+        const tl = gsap.timeline({ paused: true });
+
+        // 1. Personaje cae desde arriba
+        tl.to(personaje, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+
+        // 2. Caja sube y escala
+        tl.to(caja, { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.35);
+
+        // 3. Título "Falta"
+        tl.to(titulo, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.75);
+
+        // 4. Números aparecen
+        tl.to(numeros, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.95);
+
+        ScrollTrigger.create({
+            trigger: contenedor,
+            start: "top 85%",
+            onEnter: () => tl.restart(),
+            onLeaveBack: () => { tl.pause(0); reset(); },
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initContador);
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
