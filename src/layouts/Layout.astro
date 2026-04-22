@@ -240,6 +240,9 @@ const { title } = Astro.props;
       import { ScrollTrigger } from "gsap/ScrollTrigger";
       gsap.registerPlugin(ScrollTrigger);
 
+      // Todos los triggers recalculan posiciones cuando se llama refresh()
+      ScrollTrigger.defaults({ invalidateOnRefresh: true });
+
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("[data-entrada]").forEach((el) => {
           gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
@@ -261,6 +264,13 @@ const { title } = Astro.props;
             },
           });
         });
+      });
+
+      // Recalcula todas las posiciones cuando las imágenes ya cargaron.
+      // En móvil DOMContentLoaded dispara antes de cargar imágenes,
+      // dejando los trigger positions incorrectos.
+      window.addEventListener("load", () => {
+        setTimeout(() => ScrollTrigger.refresh(), 200);
       });
     </script>
   </body>
