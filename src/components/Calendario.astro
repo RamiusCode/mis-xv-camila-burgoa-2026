@@ -4,7 +4,7 @@
 
 <div
     id="cal-contenedor"
-    class="relative w-full flex items-center justify-center px-4 pt-10 pb-4"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 pt-10 pb-4"
 >
     <div class="relative w-full max-w-[260px] flex flex-col items-center gap-3">
         <!-- MES -->
@@ -205,9 +205,10 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const contenedor = document.getElementById("cal-contenedor");
+    const initCalendario = () => {
+        const contenedor = document.getElementById("cal-contenedor");
+        if (!contenedor) return;
 
-    if (contenedor) {
         const titulo  = document.getElementById("cal-titulo");
         const sepTop  = document.getElementById("cal-sep-top");
         const headers = document.getElementById("cal-headers");
@@ -224,11 +225,21 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(titulo,  { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(sepTop,  { scaleX: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(headers, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(grid,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(sepBot,  { scaleX: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 1. Título baja desde arriba
+        tl.to(titulo, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0);
+
+        // 2. Separador superior se expande
+        tl.to(sepTop, { scaleX: 1, opacity: 1, duration: 0.7, ease: "power2.out" }, 0.3);
+
+        // 3. Encabezados de días
+        tl.to(headers, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.65);
+
+        // 4. Grilla de números sube suave
+        tl.to(grid, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.85);
+
+        // 5. Separador inferior se expande
+        tl.to(sepBot, { scaleX: 1, opacity: 1, duration: 0.7, ease: "power2.out" }, 1.2);
 
         ScrollTrigger.create({
             trigger: contenedor,
@@ -236,5 +247,7 @@
             onEnter: () => tl.restart(),
             onLeaveBack: () => { tl.pause(0); reset(); },
         });
-    }
+    };
+
+    document.addEventListener("DOMContentLoaded", initCalendario);
 </script>

@@ -148,8 +148,6 @@
 
 <script>
     import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
 
     // ── PARTÍCULAS ESTRELLAS ──
     (function iniciarEstrellas() {
@@ -509,9 +507,6 @@
                     document.getElementById("nombres-flores") ||
                     document.getElementById("contenido-revelado");
                 if (nombresFlores) nombresFlores.style.display = "block";
-                // Recalcular posiciones de todos los ScrollTriggers
-                // después de que el body pase de overflow:hidden a auto
-                setTimeout(() => ScrollTrigger.refresh(), 100);
             });
 
             // 5. Fade out suave del negro revelando NombresFlores

@@ -4,7 +4,7 @@
 
 <div
     id="acoded-contenedor"
-    class="relative w-full flex items-center justify-center px-[24px] py-[40px]"
+    class="relative w-full overflow-hidden flex items-center justify-center px-[24px] py-[40px]"
 >
     <div
         class="relative z-10 flex flex-col items-center justify-center text-center gap-6 max-w-[400px]"
@@ -49,14 +49,16 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const contenedor = document.getElementById("acoded-contenedor");
+    const initAcoded = () => {
+        const contenedor = document.getElementById("acoded-contenedor");
+        if (!contenedor) return;
 
-    if (contenedor) {
-        const lampara  = document.getElementById("acoded-lampara");
+        const lampara = document.getElementById("acoded-lampara");
         const textoSup = document.getElementById("acoded-texto-sup");
-        const nombre   = document.getElementById("acoded-nombre") as HTMLElement;
+        const nombre = document.getElementById("acoded-nombre") as HTMLElement;
         const textoInf = document.getElementById("acoded-texto-inf");
 
+        // Preparar letras del nombre
         if (nombre) {
             const texto = nombre.textContent ?? "";
             nombre.innerHTML = texto
@@ -70,31 +72,62 @@
         }
 
         const reset = () => {
-            gsap.set(lampara,  { y: -40, opacity: 0 });
+            gsap.set(lampara, { y: -40, opacity: 0 });
             gsap.set(textoSup, { y: 20, opacity: 0 });
-            if (nombre) gsap.set(nombre.querySelectorAll("span"), { y: 6, opacity: 0 });
+            if (nombre)
+                gsap.set(nombre.querySelectorAll("span"), { y: 6, opacity: 0 });
             gsap.set(textoInf, { y: 20, opacity: 0 });
         };
         reset();
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(lampara,  { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(textoSup, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 1. Lámpara cae desde arriba
+        tl.to(
+            lampara,
+            { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
+            0,
+        );
+
+        // 2. Texto superior sube
+        tl.to(
+            textoSup,
+            { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" },
+            0.4,
+        );
+
+        // 3. Nombre letra por letra
         if (nombre) {
-            tl.to(nombre.querySelectorAll("span"), {
-                y: 0, opacity: 1,
-                duration: 0.8,
-                stagger: 0.04,
-                ease: "sine.out",
-            }, 0);
+            tl.to(
+                nombre.querySelectorAll("span"),
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.07,
+                    ease: "sine.out",
+                },
+                0.75,
+            );
         }
-        tl.to(textoInf, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 4. Texto inferior sube
+        tl.to(
+            textoInf,
+            { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" },
+            1.2,
+        );
 
         ScrollTrigger.create({
             trigger: contenedor,
             start: "top 98%",
             onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+            onLeaveBack: () => {
+                tl.pause(0);
+                reset();
+            },
         });
-    }
+    };
+
+    document.addEventListener("DOMContentLoaded", initAcoded);
 </script>

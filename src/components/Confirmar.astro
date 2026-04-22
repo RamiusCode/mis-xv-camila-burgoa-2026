@@ -4,7 +4,7 @@
 
 <div
     id="conf-contenedor"
-    class="relative w-full flex items-center justify-center px-4 py-10"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
 >
     <div class="relative w-full max-w-[550px] flex flex-col items-center">
         <div class="relative w-full">
@@ -61,9 +61,10 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const contenedor = document.getElementById("conf-contenedor");
+    const initConfirmar = () => {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
 
-    if (contenedor) {
         const marco     = document.getElementById("conf-marco");
         const contenido = document.getElementById("conf-contenido");
         const boton     = document.getElementById("conf-boton");
@@ -78,16 +79,29 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(marco,     { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(contenido, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(boton,     { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(esperamos, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 1. Marco escala y aparece
+        tl.to(marco,     { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
+
+        // 2. Texto sube suave
+        tl.to(contenido, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.5);
+
+        // 3. Botón sube
+        tl.to(boton,     { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 0.9);
+
+        // 4. "¡Te esperamos!" sube
+        tl.to(esperamos, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 1.2);
 
         ScrollTrigger.create({
             trigger: contenedor,
             start: "top 98%",
             onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+            onLeaveBack: () => {
+                tl.pause(0);
+                reset();
+            },
         });
-    }
+    };
+
+    document.addEventListener("DOMContentLoaded", initConfirmar);
 </script>

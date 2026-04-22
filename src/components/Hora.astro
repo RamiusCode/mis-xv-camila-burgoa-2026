@@ -4,7 +4,7 @@
 
 <div
     id="hora-contenedor"
-    class="relative w-full flex items-center justify-center px-4 pt-0 pb-10"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 pt-0 pb-10"
 >
     <div
         class="relative w-full max-w-[400px] flex flex-col items-center justify-center"
@@ -64,9 +64,10 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const contenedor = document.getElementById("hora-contenedor");
+    const initHora = () => {
+        const contenedor = document.getElementById("hora-contenedor");
+        if (!contenedor) return;
 
-    if (contenedor) {
         const mono      = document.getElementById("hora-mono");
         const personaje = document.getElementById("hora-personaje");
         const reloj     = document.getElementById("hora-reloj");
@@ -85,12 +86,22 @@
         reset();
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(mono,      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(personaje, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(reloj,     { scale: 1, opacity: 1, duration: 0.9, ease: "back.out(1.5)" }, 0);
-        tl.to(label,     { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(numero,    { scale: 1, opacity: 1, duration: 0.9, ease: "back.out(1.4)" }, 0);
-        tl.to(pm,        { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 1. Mono cae desde arriba + Personaje5 entra desde la izquierda
+        tl.to(mono,      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+        tl.to(personaje, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
+
+        // 2. Reloj aparece con escala
+        tl.to(reloj, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.5)" }, 0.4);
+
+        // 3. "Hora" sube
+        tl.to(label, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.75);
+
+        // 4. "7:00" escala con énfasis
+        tl.to(numero, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 0.9);
+
+        // 5. "PM" sube
+        tl.to(pm, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.15);
 
         ScrollTrigger.create({
             trigger: contenedor,
@@ -98,5 +109,7 @@
             onEnter: () => tl.restart(),
             onLeaveBack: () => { tl.pause(0); reset(); },
         });
-    }
+    };
+
+    document.addEventListener("DOMContentLoaded", initHora);
 </script>

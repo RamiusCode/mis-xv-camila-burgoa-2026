@@ -4,7 +4,7 @@
 
 <section
     id="sug-contenedor"
-    class="py-10 md:py-14 px-4 relative flex flex-col items-center"
+    class="py-10 md:py-14 px-4 relative overflow-hidden flex flex-col items-center"
 >
     <!-- TÍTULO -->
     <div id="sug-titulo" class="mb-4 text-center">
@@ -78,45 +78,95 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const contenedor = document.getElementById("sug-contenedor");
+    const initSugerencia = () => {
+        const contenedor = document.getElementById("sug-contenedor");
+        if (!contenedor) return;
 
-    if (contenedor) {
         const separador = document.getElementById("sug-separador");
-        const titulo    = document.getElementById("sug-titulo");
-        const mensaje   = document.getElementById("sug-mensaje");
-        const card      = document.getElementById("sug-card");
-        const qr        = document.getElementById("sug-qr");
-        const nombre    = document.getElementById("sug-nombre");
-        const linea     = document.getElementById("sug-linea");
-        const sobres    = document.getElementById("sug-sobres");
+        const titulo = document.getElementById("sug-titulo");
+        const mensaje = document.getElementById("sug-mensaje");
+        const card = document.getElementById("sug-card");
+        const qr = document.getElementById("sug-qr");
+        const nombre = document.getElementById("sug-nombre");
+        const linea = document.getElementById("sug-linea");
+        const sobres = document.getElementById("sug-sobres");
 
         const reset = () => {
             gsap.set(separador, { scaleX: 0, opacity: 0 });
-            gsap.set(titulo,    { y: 20, opacity: 0 });
-            gsap.set(mensaje,   { y: 20, opacity: 0 });
-            gsap.set(card,      { scale: 0.93, opacity: 0 });
-            gsap.set(qr,        { y: 20, opacity: 0 });
-            gsap.set(nombre,    { y: 16, opacity: 0 });
-            gsap.set(linea,     { scaleX: 0, opacity: 0 });
-            gsap.set(sobres,    { y: 16, opacity: 0 });
+            gsap.set(titulo, { y: 20, opacity: 0 });
+            gsap.set(mensaje, { y: 20, opacity: 0 });
+            gsap.set(card, { scale: 0.93, opacity: 0 });
+            gsap.set(qr, { y: 20, opacity: 0 });
+            gsap.set(nombre, { y: 16, opacity: 0 });
+            gsap.set(linea, { scaleX: 0, opacity: 0 });
+            gsap.set(sobres, { y: 16, opacity: 0 });
         };
         reset();
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(separador, { scaleX: 1, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(titulo,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(mensaje,   { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(card,      { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(qr,        { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(nombre,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(linea,     { scaleX: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
-        tl.to(sobres,    { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+        // 1. Separador expande
+        tl.to(
+            separador,
+            { scaleX: 1, opacity: 1, duration: 1.0, ease: "power3.out" },
+            0,
+        );
+
+        // 2. Título sube
+        tl.to(
+            titulo,
+            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+            0.4,
+        );
+
+        // 3. Mensaje sube
+        tl.to(
+            mensaje,
+            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+            0.7,
+        );
+
+        // 4. Card aparece
+        tl.to(
+            card,
+            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+            1.0,
+        );
+
+        // 5. QR sube
+        tl.to(qr, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, 1.3);
+
+        // 6. Nombre
+        tl.to(
+            nombre,
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+            1.6,
+        );
+
+        // 7. Línea decorativa
+        tl.to(
+            linea,
+            { scaleX: 1, opacity: 1, duration: 0.6, ease: "power2.out" },
+            1.85,
+        );
+
+        // 8. Texto sobres
+        tl.to(
+            sobres,
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+            2.05,
+        );
 
         ScrollTrigger.create({
             trigger: contenedor,
             start: "top 98%",
             onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+            onLeaveBack: () => {
+                tl.pause(0);
+                reset();
+            },
         });
-    }
+    };
+
+    document.addEventListener("DOMContentLoaded", initSugerencia);
 </script>
