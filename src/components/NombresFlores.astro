@@ -109,11 +109,7 @@
 <script>
     import { gsap } from "gsap";
 
-
-    (window as any).iniciarAnimacionNombresFlores = () => {
-        const nf = document.getElementById("nombres-flores");
-        if (!nf) return;
-
+    document.addEventListener("DOMContentLoaded", () => {
         gsap.from("#cortina-izq", {
             x: -80,
             opacity: 0,
@@ -236,12 +232,5 @@
                 });
             }
         }, 300);
-    };
-
-    // Si no hay portada (ej. desarrollo directo), iniciar automáticamente
-    document.addEventListener("DOMContentLoaded", () => {
-        if (!document.getElementById("portada-sobre")) {
-            (window as any).iniciarAnimacionNombresFlores();
-        }
     });
 </script>
