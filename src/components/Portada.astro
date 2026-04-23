@@ -506,7 +506,17 @@
                 const nombresFlores =
                     document.getElementById("nombres-flores") ||
                     document.getElementById("contenido-revelado");
-                if (nombresFlores) nombresFlores.style.display = "block";
+                if (nombresFlores) {
+                    nombresFlores.style.display = "block";
+                    // DISPARAR ANIMACIONES AQUÍ
+                    if (typeof (window as any).iniciarAnimacionNombresFlores === "function") {
+                        (window as any).iniciarAnimacionNombresFlores();
+                    }
+                    if (typeof (window as any).iniciarAnimacionDedicatoria === "function") {
+                        (window as any).iniciarAnimacionDedicatoria();
+                    }
+                }
+
             });
 
             // 5. Fade out suave del negro revelando NombresFlores

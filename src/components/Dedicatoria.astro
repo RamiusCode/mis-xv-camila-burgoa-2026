@@ -45,23 +45,43 @@
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    function initDedicatoria() {
+    (window as any).iniciarAnimacionDedicatoria = () => {
         const marco = document.getElementById("dedicatoria-marco");
         const texto = document.getElementById("dedicatoria-texto");
         const contenedor = document.getElementById("dedicatoria-contenedor");
 
         if (!marco || !texto || !contenedor) return;
 
-        // Timeline con ScrollTrigger
-        const tl = gsap.timeline({
+        const tl = gsap.timeline();
+        tl.from(marco, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        })
+        .from(texto, {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: "power3.out",
+        }, "-=0.6");
+    };
+
+    function setupDedicatoriaScroll() {
+        const contenedor = document.getElementById("dedicatoria-contenedor");
+        if (!contenedor) return;
+
+        const marco = document.getElementById("dedicatoria-marco");
+        const texto = document.getElementById("dedicatoria-texto");
+
+        gsap.timeline({
             scrollTrigger: {
                 trigger: contenedor,
                 start: "top 85%",
                 toggleActions: "play none none reset",
             }
-        });
-
-        tl.from(marco, {
+        })
+        .from(marco, {
             scale: 0.8,
             opacity: 0,
             duration: 1.2,
@@ -75,9 +95,11 @@
         }, "-=0.6");
     }
 
-    // Ejecutar al cargar el DOM
-    document.addEventListener("DOMContentLoaded", initDedicatoria);
-    // Ejecutar al cargar la página en Astro (ViewTransitions)
-    document.addEventListener("astro:page-load", initDedicatoria);
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!document.getElementById("portada-sobre")) {
+            setupDedicatoriaScroll();
+        }
+    });
 </script>
+
 
