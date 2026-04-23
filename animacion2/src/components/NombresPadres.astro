@@ -1,0 +1,106 @@
+---
+// NombresPadres.astro
+---
+
+<div
+    id="padres-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] py-[15px]"
+>
+    <!-- PERSONAJE izquierda pegado al borde -->
+    <img
+        id="padres-personaje"
+        src="/imagenes/personaje2.png"
+        alt="Personaje"
+        class="absolute left-0 bottom-0 z-[20] pointer-events-none select-none w-[90px] h-auto"
+    />
+
+    <div class="relative w-full max-w-[420px] flex flex-col items-center gap-0">
+        <!-- TÍTULO "Mis Padres" -->
+        <h2
+            id="padres-titulo"
+            class="font-great-vibes text-[38px] text-[#07c4c7] m-0"
+        >
+            Mis Padres
+        </h2>
+
+        <!-- MARCO -->
+        <div class="relative w-[85%]">
+            <!-- IMAGEN DEL MARCO -->
+            <img
+                id="padres-marco"
+                src="/imagenes/marco2.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- NOMBRES DENTRO DEL MARCO -->
+            <div
+                id="padres-nombres"
+                class="absolute inset-0 z-[15] flex flex-col items-center justify-center gap-2 px-[15%] py-[10%]"
+            >
+                <p
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed"
+                >
+                    Mirko Burgoa Casas
+                </p>
+                <p
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed"
+                >
+                    Neisa Lastra Valdivia
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initPadres() {
+        const contenedor = document.getElementById("padres-contenedor");
+        if (!contenedor) return;
+
+        const personaje = document.getElementById("padres-personaje");
+        const titulo = document.getElementById("padres-titulo");
+        const marco = document.getElementById("padres-marco");
+        const nombres = document.getElementById("padres-nombres");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(personaje, {
+            x: -80,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(titulo, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=1") // Casi al mismo tiempo
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from(nombres, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.6");
+    }
+
+    document.addEventListener("DOMContentLoaded", initPadres);
+    document.addEventListener("astro:page-load", initPadres);
+</script>
+

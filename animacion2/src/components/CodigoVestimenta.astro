@@ -1,0 +1,151 @@
+---
+// CodigoVestimenta.astro
+---
+
+<style>
+    .icono-dorado {
+        filter: brightness(0) saturate(100%) invert(62%) sepia(60%)
+            saturate(700%) hue-rotate(5deg) brightness(92%);
+    }
+</style>
+
+<div
+    id="cv-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-0 pt-0 pb-10"
+>
+    <div class="relative w-full max-w-[650px] flex flex-col items-center">
+        <div class="flex justify-center items-center py-6">
+            <img
+                id="cv-alfombra"
+                src="/imagenes/alfombra.png"
+                alt="Alfombra"
+                class="w-[50%] max-w-full h-auto"
+            />
+        </div>
+
+        <!-- CONTENEDOR MARCO + PERSONAJES -->
+        <div class="relative w-full">
+            <!-- ALADIN (abajo izquierda) -->
+            <img
+                id="cv-aladin"
+                src="/imagenes/aladin.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] left-[-1%] z-[15] pointer-events-none select-none w-[110px] h-auto"
+            />
+
+            <!-- CHICA ALADINA (abajo derecha) -->
+            <img
+                id="cv-chica"
+                src="/imagenes/chicaaladina.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] right-[-3%] z-[15] pointer-events-none select-none w-[100px] h-auto"
+            />
+
+            <!-- MARCO -->
+            <img
+                id="cv-marco"
+                src="/imagenes/marco5.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- TEXTO DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center gap-0 px-[18%] pt-[25%] pb-[10%]"
+            >
+                <img
+                    id="cv-icono"
+                    src="/imagenes/vestimenta.png"
+                    alt="Código de vestimenta"
+                    class="icono-dorado w-[65px] h-auto pointer-events-none select-none mb-[8px]"
+                />
+
+                <p
+                    id="cv-titulo"
+                    class="font-great-vibes text-[32px] text-[#c8960c] text-center m-0 leading-tight [text-shadow:0_2px_12px_rgba(200,150,12,0.35)]"
+                >
+                    Código de Vestimenta
+                </p>
+
+                <p
+                    id="cv-subtitulo"
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed mt-[4px] font-bold"
+                >
+                    Guapos y Divinas
+                </p>
+
+                <p
+                    id="cv-reserva"
+                    class="font-charm text-[18px] text-[#c8960c] text-center m-0 leading-tight mt-[18px] px-4"
+                >
+                    El color turquesa y dorado está reservado para la
+                    quinceañera.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initCV() {
+        const contenedor = document.getElementById("cv-contenedor");
+        if (!contenedor) return;
+
+        const alfombra = document.getElementById("cv-alfombra");
+        const aladin = document.getElementById("cv-aladin");
+        const chica = document.getElementById("cv-chica");
+        const marco = document.getElementById("cv-marco");
+        const icono = document.getElementById("cv-icono");
+        const titulo = document.getElementById("cv-titulo");
+        const subtit = document.getElementById("cv-subtitulo");
+        const reserva = document.getElementById("cv-reserva");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(alfombra, {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from([aladin, chica], {
+            x: (i) => (i === 0 ? -60 : 60),
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.8")
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(icono, {
+            scale: 0.5,
+            opacity: 0,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+        }, "-=0.4")
+        .from([titulo, subtit, reserva], {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        }, "-=0.4");
+    }
+
+    document.addEventListener("DOMContentLoaded", initCV);
+    document.addEventListener("astro:page-load", initCV);
+</script>
+

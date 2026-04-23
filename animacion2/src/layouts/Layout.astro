@@ -1,0 +1,277 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+export interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="m-0 p-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light only" />
+    <link rel="icon" type="image/png" href="/imagenes/corona.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Text:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* FORZAR MODO CLARO - DESHABILITAR MODO OSCURO */
+      :root {
+        color-scheme: light only;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color-scheme: light only;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        color-scheme: light only;
+        background-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-color: transparent;
+        color-scheme: light only;
+        position: relative;
+      }
+
+      /* Textura de fondo con opacidad */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("/imagenes/fondo4.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      main {
+        background: transparent !important;
+      }
+
+      /* Prevenir cualquier cambio de color por modo oscuro */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: light only !important;
+        }
+
+        html,
+        body {
+          background-color: transparent !important;
+          color: inherit !important;
+        }
+
+        * {
+          color-scheme: light only !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen m-0 p-0">
+    <!-- PARTÍCULAS ESTRELLAS DE FONDO -->
+    <canvas
+      id="canvas-fondo-estrellas"
+      style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"
+    ></canvas>
+
+    <main class="m-0 p-0 overflow-x-hidden" style="position:relative;z-index:1;">
+      <slot />
+    </main>
+
+    <script>
+      (function iniciarEstrellasFondo() {
+        const canvas = document.getElementById("canvas-fondo-estrellas") as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d")!;
+
+        const resize = () => {
+          canvas.width  = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener("resize", resize);
+
+        const colores = ["255,255,255"];
+
+        type Estrella = {
+          x: number; y: number;
+          radio: number;
+          color: string;
+          alfa: number; alfaMin: number; alfaMax: number;
+          vx: number; vy: number;
+          pulso: number; pulsoVel: number;
+          tipo: "punto" | "cruz";
+        };
+
+        const CANTIDAD = 90;
+        const estrellas: Estrella[] = [];
+
+        const crearEstrella = (forzarYAbajo = false): Estrella => {
+          const alfaMax = 0.4 + Math.random() * 0.6;
+          return {
+            x: Math.random() * canvas.width,
+            y: forzarYAbajo
+              ? canvas.height + Math.random() * 40
+              : Math.random() * canvas.height,
+            radio: 0.6 + Math.random() * 2.2,
+            color: colores[Math.floor(Math.random() * colores.length)],
+            alfa: Math.random() * alfaMax,
+            alfaMin: 0.02,
+            alfaMax,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: -(0.15 + Math.random() * 0.45),
+            pulso: Math.random() * Math.PI * 2,
+            pulsoVel: 0.02 + Math.random() * 0.04,
+            tipo: Math.random() > 0.65 ? "cruz" : "punto",
+          };
+        };
+
+        for (let i = 0; i < CANTIDAD; i++) estrellas.push(crearEstrella());
+
+        const dibujarCruz = (e: Estrella) => {
+          const r = e.radio * 3.5;
+          const glow = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, r * 2);
+          glow.addColorStop(0,   `rgba(${e.color},${e.alfa})`);
+          glow.addColorStop(0.4, `rgba(${e.color},${e.alfa * 0.5})`);
+          glow.addColorStop(1,   `rgba(${e.color},0)`);
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, r * 2, 0, Math.PI * 2);
+          ctx.fillStyle = glow;
+          ctx.fill();
+          ctx.save();
+          ctx.globalAlpha = e.alfa;
+          ctx.strokeStyle = `rgb(${e.color})`;
+          ctx.lineWidth = e.radio * 0.6;
+          ctx.lineCap = "round";
+          ctx.shadowColor = `rgb(${e.color})`;
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.moveTo(e.x - r, e.y); ctx.lineTo(e.x + r, e.y);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(e.x, e.y - r); ctx.lineTo(e.x, e.y + r);
+          ctx.stroke();
+          const rd = r * 0.5;
+          ctx.lineWidth = e.radio * 0.3;
+          ctx.beginPath();
+          ctx.moveTo(e.x - rd, e.y - rd); ctx.lineTo(e.x + rd, e.y + rd);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(e.x + rd, e.y - rd); ctx.lineTo(e.x - rd, e.y + rd);
+          ctx.stroke();
+          ctx.restore();
+        };
+
+        const dibujarPunto = (e: Estrella) => {
+          const glow = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.radio * 4);
+          glow.addColorStop(0,   `rgba(${e.color},${e.alfa})`);
+          glow.addColorStop(0.5, `rgba(${e.color},${e.alfa * 0.3})`);
+          glow.addColorStop(1,   `rgba(${e.color},0)`);
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.radio * 4, 0, Math.PI * 2);
+          ctx.fillStyle = glow;
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.radio, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${e.color},${Math.min(e.alfa * 1.4, 1)})`;
+          ctx.fill();
+        };
+
+        const animar = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const e of estrellas) {
+            e.pulso += e.pulsoVel;
+            e.alfa = e.alfaMin + (Math.sin(e.pulso) * 0.5 + 0.5) * (e.alfaMax - e.alfaMin);
+            e.x += e.vx;
+            e.y += e.vy;
+            if (e.tipo === "cruz") dibujarCruz(e);
+            else dibujarPunto(e);
+            if (e.y < -20) Object.assign(e, crearEstrella(true));
+          }
+          requestAnimationFrame(animar);
+        };
+        animar();
+      })();
+    </script>
+
+    <!-- ANIMACIONES DE ENTRADA GLOBALES -->
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Todos los triggers recalculan posiciones cuando se llama refresh()
+      ScrollTrigger.defaults({ invalidateOnRefresh: true });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-entrada]").forEach((el) => {
+          gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
+
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 98%",
+            onEnter: () => {
+              gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: "power3.out",
+              });
+            },
+            onLeaveBack: () => {
+              gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
+            },
+          });
+        });
+      });
+
+      // Recalcula todas las posiciones cuando las imágenes ya cargaron.
+      // En móvil DOMContentLoaded dispara antes de cargar imágenes,
+      // dejando los trigger positions incorrectos.
+      window.addEventListener("load", () => {
+        setTimeout(() => ScrollTrigger.refresh(), 200);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+---
+// Fecha.astro
+---
+
+<div
+    id="fecha-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
+>
+    <div class="relative w-full max-w-[400px] flex items-center justify-center">
+        <!-- BOTELLA izquierda -->
+        <img
+            id="fecha-botella"
+            src="/imagenes/botella.png"
+            alt="Botella"
+            class="absolute -left-[6%] bottom-[-10%] z-[15] pointer-events-none select-none w-[65px] h-auto"
+        />
+
+        <!-- CHICA derecha -->
+        <img
+            id="fecha-chica"
+            src="/imagenes/chica.png"
+            alt="Personaje"
+            class="absolute right-[-10%] bottom-[-15%] z-[15] pointer-events-none select-none w-[150px] h-auto"
+        />
+
+        <!-- MARCO -->
+        <div class="relative w-full">
+            <img
+                id="fecha-marco"
+                src="/imagenes/marco4.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- TEXTO DENTRO DEL MARCO -->
+            <div
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center px-[14%] pt-[30%]"
+            >
+                <p
+                    id="fecha-magica"
+                    class="font-cormorant-sc text-[10px] uppercase tracking-[0.35em] text-[#07c4c7]/80 m-0"
+                >
+                    ✦ Una noche mágica ✦
+                </p>
+
+                <p
+                    id="fecha-dia"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
+                >
+                    Sábado
+                </p>
+
+                <p
+                    id="fecha-numero"
+                    class="font-great-vibes text-[90px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]"
+                >
+                    9
+                </p>
+
+                <p
+                    id="fecha-mes"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
+                >
+                    Mayo
+                </p>
+
+                <p
+                    id="fecha-anio"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7]/70 m-0 font-bold leading-none mt-[2px]"
+                >
+                    2026
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initFecha() {
+        const contenedor = document.getElementById("fecha-contenedor");
+        if (!contenedor) return;
+
+        const botella = document.getElementById("fecha-botella");
+        const chica = document.getElementById("fecha-chica");
+        const marco = document.getElementById("fecha-marco");
+        const magica = document.getElementById("fecha-magica");
+        const dia = document.getElementById("fecha-dia");
+        const numero = document.getElementById("fecha-numero");
+        const mes = document.getElementById("fecha-mes");
+        const anio = document.getElementById("fecha-anio");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        // 1. Botella + Chica entran desde los lados
+        tl.from(botella, { x: -70, opacity: 0, duration: 1, ease: "power3.out" }, 0)
+          .from(chica, { x: 70, opacity: 0, duration: 1, ease: "power3.out" }, 0);
+
+        // 2. Marco aparece
+        tl.from(marco, { scale: 0.92, opacity: 0, duration: 1, ease: "power2.out" }, 0.3);
+
+        // 3. Textos aparecen en cascada elegante
+        tl.from(magica, { opacity: 0, y: 10, duration: 0.6 }, 0.7)
+          .from(dia, { opacity: 0, y: 10, duration: 0.6 }, 0.8)
+          .from(numero, { scale: 0.7, opacity: 0, duration: 0.8, ease: "back.out(1.7)" }, 0.9)
+          .from(mes, { opacity: 0, y: 10, duration: 0.6 }, 1.1)
+          .from(anio, { opacity: 0, y: 10, duration: 0.6 }, 1.2);
+    }
+
+    document.addEventListener("DOMContentLoaded", initFecha);
+    document.addEventListener("astro:page-load", initFecha);
+</script>
+

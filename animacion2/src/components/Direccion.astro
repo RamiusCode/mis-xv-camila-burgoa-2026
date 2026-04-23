@@ -1,0 +1,152 @@
+---
+// Recepcion.astro
+---
+
+<style>
+    /* Tinta el ícono al color dorado #c8960c — cambia el filter si cambias el color */
+    .icono-dorado {
+        filter: brightness(0) saturate(100%) invert(62%) sepia(60%)
+            saturate(700%) hue-rotate(5deg) brightness(92%);
+    }
+</style>
+
+<div
+    id="dir-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-0 pt-0 pb-10"
+>
+    <div class="relative w-full max-w-[650px] flex flex-col items-center">
+        <!-- CONTENEDOR MARCO + PERSONAJES -->
+        <div class="relative w-full">
+            <!-- PERSONAJE6 (abajo izquierda) -->
+            <img
+                id="dir-personaje6"
+                src="/imagenes/personaje6.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] left-[-10%] z-[15] pointer-events-none select-none w-[140px] h-auto"
+            />
+
+            <!-- PERSONAJE7 (abajo derecha) — flota suave -->
+            <img
+                id="dir-personaje7"
+                src="/imagenes/personaje7.png"
+                alt="Personaje"
+                class="absolute bottom-[-5%] right-[-8%] z-[15] pointer-events-none select-none w-[100px] h-auto"
+            />
+
+            <!-- MARCO -->
+            <img
+                id="dir-marco"
+                src="/imagenes/marco5.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- TEXTO DENTRO DEL MARCO -->
+            <div
+                id="dir-icono"
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center gap-0 px-[18%] pt-[15%] pb-[10%]"
+            >
+                <!-- ÍCONO UBICACIÓN -->
+                <img
+                    src="/imagenes/ubicacion.png"
+                    alt=""
+                    class="icono-dorado w-[32px] h-auto pointer-events-none select-none mb-[4px]"
+                />
+
+                <!-- SALÓN -->
+                <p
+                    id="dir-salon"
+                    class="font-great-vibes text-[32px] text-[#c8960c] text-center m-0 leading-tight [text-shadow:0_2px_12px_rgba(200,150,12,0.35)]"
+                >
+                    Salón de Eventos Elianne 3
+                </p>
+
+                <!-- DIRECCIÓN -->
+                <p
+                    id="dir-direccion"
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed mt-[4px]"
+                >
+                    Séptimo anillo, Av. Santos Dumont,<br />calle Bibosi
+                </p>
+            </div>
+        </div>
+
+        <!-- BOTÓN -->
+        <a
+            id="dir-boton"
+            href="https://maps.app.goo.gl/1xvEWDaJJMy2WE1JA"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-[24px] flex items-center gap-[8px] px-[32px] py-[12px]
+                   bg-[#c8960c] text-white
+                   font-cormorant-sc text-[18px] uppercase tracking-[0.3em]
+                   rounded-full
+                   [box-shadow:0_6px_0_#8a6408,0_8px_16px_rgba(200,150,12,0.45)]
+                   active:[box-shadow:0_2px_0_#8a6408,0_3px_8px_rgba(200,150,12,0.35)]
+                   active:translate-y-[4px]
+                   transition-all duration-150"
+        >
+            <img
+                src="/imagenes/ubicacion.png"
+                alt=""
+                class="w-[16px] h-auto [filter:brightness(0)_invert(1)]"
+            />
+            Ver Ubicación
+        </a>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initDireccion() {
+        const contenedor = document.getElementById("dir-contenedor");
+        if (!contenedor) return;
+
+        const personaje6 = document.getElementById("dir-personaje6");
+        const personaje7 = document.getElementById("dir-personaje7");
+        const marco = document.getElementById("dir-marco");
+        const contenido = document.getElementById("dir-icono");
+        const boton = document.getElementById("dir-boton");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from([personaje6, personaje7], {
+            x: (i) => (i === 0 ? -60 : 60),
+            y: 20,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.8")
+        .from(contenido, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(boton, {
+            scale: 0.5,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.4");
+    }
+
+    document.addEventListener("DOMContentLoaded", initDireccion);
+    document.addEventListener("astro:page-load", initDireccion);
+</script>
+

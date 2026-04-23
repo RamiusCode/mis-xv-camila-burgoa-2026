@@ -1,0 +1,138 @@
+---
+// NombresPadrinos.astro
+---
+
+<div
+    id="padrinos-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] py-[15px]"
+>
+    <div class="relative w-full max-w-[420px] flex flex-col items-center gap-0">
+        <!-- SEPARADOR SUPERIOR -->
+        <img
+            id="padrinos-separador"
+            src="/imagenes/separador.png"
+            alt=""
+            class="pointer-events-none select-none w-[250px] h-auto mb-[8px]"
+        />
+
+        <!-- TÍTULO "Mis Padrinos" -->
+        <h2
+            id="padrinos-titulo"
+            class="font-great-vibes text-[38px] text-[#07c4c7] m-0"
+        >
+            Mis Padrinos
+        </h2>
+
+        <!-- MARCO con lámparas en esquinas -->
+        <div class="relative w-[85%]">
+            <!-- LÁMPARA inferior izquierda -->
+            <div
+                id="padrinos-lampara-izq"
+                class="absolute bottom-0 left-0 z-[20]"
+            >
+                <img
+                    src="/imagenes/lampara.png"
+                    alt=""
+                    class="w-[90px] h-auto pointer-events-none select-none -translate-x-1/2 scale-x-[-1]"
+                />
+            </div>
+
+            <!-- LÁMPARA inferior derecha -->
+            <div
+                id="padrinos-lampara-der"
+                class="absolute bottom-0 right-0 z-[20]"
+            >
+                <img
+                    src="/imagenes/lampara.png"
+                    alt=""
+                    class="w-[90px] h-auto pointer-events-none select-none translate-x-1/2"
+                />
+            </div>
+
+            <!-- IMAGEN DEL MARCO -->
+            <img
+                id="padrinos-marco"
+                src="/imagenes/marco2.png"
+                alt=""
+                class="w-full h-auto block pointer-events-none select-none"
+            />
+
+            <!-- NOMBRES DENTRO DEL MARCO -->
+            <div
+                id="padrinos-nombres"
+                class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-[15%] py-[10%]"
+            >
+                <p
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed"
+                >
+                    José Robles
+                </p>
+                <p
+                    class="font-charm text-[20px] text-[#07c4c7] text-center m-0 leading-relaxed"
+                >
+                    Nathaly Rivero
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initPadrinos() {
+        const contenedor = document.getElementById("padrinos-contenedor");
+        if (!contenedor) return;
+
+        const separador = document.getElementById("padrinos-separador");
+        const titulo = document.getElementById("padrinos-titulo");
+        const lamparaIzq = document.getElementById("padrinos-lampara-izq");
+        const lamparaDer = document.getElementById("padrinos-lampara-der");
+        const marco = document.getElementById("padrinos-marco");
+        const nombres = document.getElementById("padrinos-nombres");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(separador, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        })
+        .from(titulo, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from([lamparaIzq, lamparaDer], {
+            x: (i) => (i === 0 ? -30 : 30),
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.7")
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        }, "-=1")
+        .from(nombres, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut",
+        }, "-=0.8");
+    }
+
+    document.addEventListener("DOMContentLoaded", initPadrinos);
+    document.addEventListener("astro:page-load", initPadrinos);
+</script>
+

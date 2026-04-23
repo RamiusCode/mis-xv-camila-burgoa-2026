@@ -1,0 +1,122 @@
+---
+// Hora.astro
+---
+
+<div
+    id="hora-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 pt-0 pb-10"
+>
+    <div
+        class="relative w-full max-w-[400px] flex flex-col items-center justify-center"
+        style="min-height: 220px;"
+    >
+        <!-- MONO (arriba derecha) -->
+        <img
+            id="hora-mono"
+            src="/imagenes/mono.png"
+            alt="Mono"
+            class="absolute top-0 right-[2%] z-[5] pointer-events-none select-none w-[100px] h-auto"
+        />
+
+        <!-- PERSONAJE5 (abajo izquierda) -->
+        <img
+            id="hora-personaje"
+            src="/imagenes/personaje5.png"
+            alt="Personaje"
+            class="absolute bottom-0 left-[-5%] z-[5] pointer-events-none select-none w-[130px] h-auto"
+        />
+
+        <!-- RELOJ + TEXTO (centro) -->
+        <div class="relative z-[10] flex flex-col items-center gap-[4px]">
+            <img
+                id="hora-reloj"
+                src="/imagenes/reloj.png"
+                alt="Reloj"
+                class="w-[80px] h-auto pointer-events-none select-none"
+            />
+
+            <p
+                id="hora-label"
+                class="font-charm text-[20px] uppercase tracking-[0.2em] text-[#07c4c7] font-bold m-0"
+            >
+                Hora
+            </p>
+
+            <p
+                id="hora-numero"
+                class="font-great-vibes text-[72px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]"
+            >
+                7:00
+            </p>
+
+            <p
+                id="hora-pm"
+                class="font-charm text-[20px] uppercase tracking-[0.2em] text-[#07c4c7] font-bold m-0"
+            >
+                PM
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initHora() {
+        const contenedor = document.getElementById("hora-contenedor");
+        if (!contenedor) return;
+
+        const mono = document.getElementById("hora-mono");
+        const personaje = document.getElementById("hora-personaje");
+        const reloj = document.getElementById("hora-reloj");
+        const label = document.getElementById("hora-label");
+        const numero = document.getElementById("hora-numero");
+        const pm = document.getElementById("hora-pm");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(mono, {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(personaje, {
+            x: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=1")
+        .from(reloj, {
+            scale: 0.7,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from([label, pm], {
+            y: 10,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(numero, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.4)",
+        }, "-=0.6");
+    }
+
+    document.addEventListener("DOMContentLoaded", initHora);
+    document.addEventListener("astro:page-load", initHora);
+</script>
+

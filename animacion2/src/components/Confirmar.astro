@@ -1,0 +1,128 @@
+---
+// Confirmar.astro
+---
+
+<div
+    id="conf-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-4 py-10"
+>
+    <div class="relative w-full max-w-[550px] flex flex-col items-center">
+        <div class="relative w-full">
+            <img
+                id="conf-marco"
+                src="/imagenes/marco5.png"
+                alt=""
+                class="relative z-[10] w-full h-auto block pointer-events-none select-none"
+            />
+
+            <div
+                id="conf-contenido"
+                class="absolute inset-0 z-[12] flex flex-col items-center justify-center px-[18%] pt-[5%]"
+            >
+                <p
+                    class="font-crimson text-[18px] md:text-[21px] text-[#0f4c5c] text-center m-0 leading-relaxed italic"
+                >
+                    Será un verdadero placer contar con tu presencia en este día
+                    tan especial.
+                    <br />
+                    Tu compañía significa mucho para nosotros.
+                </p>
+            </div>
+        </div>
+
+        <a
+            id="conf-boton"
+            href="https://wa.link/dzqoak"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-[20px] flex items-center justify-center px-8 py-3
+                   bg-[#c8960c] text-white
+                   font-cormorant-sc text-[14px] uppercase tracking-[0.25em]
+                   rounded-full
+                   [box-shadow:0_4px_0_#8a6408,0_6px_12px_rgba(200,150,12,0.4)]
+                   active:[box-shadow:0_1px_0_#8a6408,0_2px_4px_rgba(200,150,12,0.3)]
+                   active:translate-y-[3px]"
+        >
+            Confirmar Asistencia
+        </a>
+
+        <p
+            id="conf-esperamos"
+            class="font-great-vibes text-[32px] text-[#c8960c] mt-4 m-0"
+        >
+            ¡Te esperamos!
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initConfirmar() {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
+
+        const marco = document.getElementById("conf-marco");
+        const contenido = document.getElementById("conf-contenido");
+        const boton = document.getElementById("conf-boton");
+        const esperamos = document.getElementById("conf-esperamos");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top bottom", // Se activa en cuanto asoma por abajo
+                toggleActions: "play none none reset",
+            },
+        });
+
+        tl.from(marco, {
+            scale: 0.95,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        })
+            .from(
+                contenido,
+                {
+                    opacity: 0,
+                    y: 15,
+                    duration: 1.2,
+                    ease: "power2.out",
+                },
+                "-=0.8",
+            )
+            .fromTo(
+                boton,
+                {
+                    scale: 0.8,
+                    opacity: 0,
+                },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "back.out(1.4)",
+                    clearProps: "all", // Limpia estilos al terminar para que el CSS active funcione
+                },
+                "-=0.6",
+            )
+            .from(
+                esperamos,
+                {
+                    opacity: 0,
+                    y: -10,
+                    duration: 1.5,
+                    ease: "power2.out",
+                },
+                "-=0.4",
+            );
+    }
+
+    document.addEventListener("DOMContentLoaded", initConfirmar);
+    document.addEventListener("astro:page-load", initConfirmar);
+</script>
+
+
+
