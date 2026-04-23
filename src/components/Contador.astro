@@ -104,52 +104,58 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initContador = () => {
+    function initContador() {
         const contenedor = document.getElementById("cont-contenedor");
         if (!contenedor) return;
 
         const personaje = document.getElementById("cont-personaje");
-        const caja      = document.getElementById("cont-caja");
-        const titulo    = document.getElementById("cont-titulo");
-        const numeros   = document.getElementById("cont-numeros");
+        const caja = document.getElementById("cont-caja");
+        const titulo = document.getElementById("cont-titulo");
+        const numeros = document.getElementById("cont-numeros");
 
-        const reset = () => {
-            gsap.set(personaje, { y: -50, opacity: 0 });
-            gsap.set(caja,      { y: 40, scale: 0.93, opacity: 0 });
-            gsap.set(titulo,    { opacity: 0 });
-            gsap.set(numeros,   { opacity: 0 });
-        };
-        reset();
-
-        const tl = gsap.timeline({ paused: true });
-
-        // 1. Personaje cae desde arriba
-        tl.to(personaje, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-
-        // 2. Caja sube y escala
-        tl.to(caja, { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, 0.35);
-
-        // 3. Título "Falta"
-        tl.to(titulo, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.75);
-
-        // 4. Números aparecen
-        tl.to(numeros, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.95);
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
         });
-    };
+
+        tl.from(personaje, {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(caja, {
+            y: 40,
+            scale: 0.95,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.8")
+        .from(titulo, {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+        }, "-=0.4")
+        .from(numeros, {
+            opacity: 0,
+            y: 10,
+            duration: 0.8,
+            ease: "power2.out",
+        }, "-=0.4");
+    }
 
     document.addEventListener("DOMContentLoaded", initContador);
-</script> -->
+    document.addEventListener("astro:page-load", initContador);
+</script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

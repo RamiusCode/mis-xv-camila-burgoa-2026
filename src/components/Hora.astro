@@ -59,57 +59,64 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initHora = () => {
+    function initHora() {
         const contenedor = document.getElementById("hora-contenedor");
         if (!contenedor) return;
 
-        const mono      = document.getElementById("hora-mono");
+        const mono = document.getElementById("hora-mono");
         const personaje = document.getElementById("hora-personaje");
-        const reloj     = document.getElementById("hora-reloj");
-        const label     = document.getElementById("hora-label");
-        const numero    = document.getElementById("hora-numero");
-        const pm        = document.getElementById("hora-pm");
+        const reloj = document.getElementById("hora-reloj");
+        const label = document.getElementById("hora-label");
+        const numero = document.getElementById("hora-numero");
+        const pm = document.getElementById("hora-pm");
 
-        const reset = () => {
-            gsap.set(mono,      { y: -60, opacity: 0 });
-            gsap.set(personaje, { x: -70, opacity: 0 });
-            gsap.set(reloj,     { scale: 0.7, opacity: 0 });
-            gsap.set(label,     { y: 12, opacity: 0 });
-            gsap.set(numero,    { scale: 0.75, opacity: 0 });
-            gsap.set(pm,        { y: 12, opacity: 0 });
-        };
-        reset();
-
-        const tl = gsap.timeline({ paused: true });
-
-        // 1. Mono cae desde arriba + Personaje5 entra desde la izquierda
-        tl.to(mono,      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-        tl.to(personaje, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0);
-
-        // 2. Reloj aparece con escala
-        tl.to(reloj, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.5)" }, 0.4);
-
-        // 3. "Hora" sube
-        tl.to(label, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.75);
-
-        // 4. "7:00" escala con énfasis
-        tl.to(numero, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 0.9);
-
-        // 5. "PM" sube
-        tl.to(pm, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 1.15);
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
         });
-    };
+
+        tl.from(mono, {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(personaje, {
+            x: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=1")
+        .from(reloj, {
+            scale: 0.7,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from([label, pm], {
+            y: 10,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(numero, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.4)",
+        }, "-=0.6");
+    }
 
     document.addEventListener("DOMContentLoaded", initHora);
-</script> -->
+    document.addEventListener("astro:page-load", initHora);
+</script>
+
