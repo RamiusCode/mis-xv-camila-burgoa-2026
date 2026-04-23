@@ -88,54 +88,18 @@
             opacity: 0,
             duration: 1.2,
             ease: "power3.out",
-            onComplete: () => {
-                gsap.to(mono, {
-                    y: -6,
-                    duration: 1.4,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         })
         .from(personaje, {
             x: -50,
             opacity: 0,
             duration: 1.2,
             ease: "power3.out",
-            onComplete: () => {
-                gsap.to(personaje, {
-                    y: -12,
-                    duration: 2.4,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(personaje, {
-                    rotation: 3,
-                    transformOrigin: "center bottom",
-                    duration: 3.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         }, "-=1")
         .from(reloj, {
             scale: 0.7,
             opacity: 0,
             duration: 1,
             ease: "back.out(1.7)",
-            onComplete: () => {
-                gsap.to(reloj, {
-                    rotation: 8,
-                    transformOrigin: "center center",
-                    duration: 2.5,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         }, "-=0.8")
         .from([label, pm], {
             y: 10,

@@ -134,15 +134,6 @@
             duration: 1.4,
             ease: "elastic.out(1,0.6)",
             delay: 0.5,
-            onComplete: () => {
-                gsap.to("#corona", {
-                    scale: 1.06,
-                    duration: 2.8,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         });
         gsap.from("#texto-mis-xv", {
             y: 18,

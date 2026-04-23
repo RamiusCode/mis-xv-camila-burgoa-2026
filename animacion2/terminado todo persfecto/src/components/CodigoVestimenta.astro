@@ -30,7 +30,7 @@
                 id="cv-aladin"
                 src="/imagenes/aladin.png"
                 alt="Personaje"
-                class="absolute bottom-[-5%] left-[-3%] z-[15] pointer-events-none select-none w-[110px] h-auto"
+                class="absolute bottom-[-5%] left-[-1%] z-[15] pointer-events-none select-none w-[110px] h-auto"
             />
 
             <!-- CHICA ALADINA (abajo derecha) -->
@@ -109,105 +109,43 @@
                 trigger: contenedor,
                 start: "top 85%",
                 toggleActions: "play none none reset",
-            },
+            }
         });
 
-        // 1. Alfombra entra y luego vuela
         tl.from(alfombra, {
             y: -50,
             opacity: 0,
             duration: 1.2,
             ease: "power3.out",
-            onComplete: () => {
-                gsap.to(alfombra, {
-                    y: -12,
-                    duration: 2.4,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(alfombra, {
-                    rotation: 3,
-                    transformOrigin: "center bottom",
-                    duration: 3.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         })
-            // 2. Personajes entran y luego se balancean
-            .from(
-                [aladin, chica],
-                {
-                    x: (i) => (i === 0 ? -60 : 60),
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    onComplete: () => {
-                        gsap.to(aladin, {
-                            rotation: 2.5,
-                            transformOrigin: "bottom center",
-                            duration: 2.2,
-                            ease: "sine.inOut",
-                            repeat: -1,
-                            yoyo: true,
-                        });
-                        gsap.to(chica, {
-                            rotation: 2.5,
-                            transformOrigin: "bottom center",
-                            duration: 3.1,
-                            ease: "sine.inOut",
-                            repeat: -1,
-                            yoyo: true,
-                        });
-                    },
-                },
-                "-=0.8",
-            )
-            // 3. Marco aparece
-            .from(
-                marco,
-                {
-                    scale: 0.9,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power2.out",
-                },
-                "-=0.6",
-            )
-            // 4. Ícono + textos entran al mismo tiempo, ícono pulsa después
-            .from(
-                icono,
-                {
-                    scale: 0.5,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "back.out(1.7)",
-                    onComplete: () => {
-                        gsap.to(icono, {
-                            scale: 1.15,
-                            duration: 1.2,
-                            ease: "sine.inOut",
-                            repeat: -1,
-                            yoyo: true,
-                        });
-                    },
-                },
-                "-=0.4",
-            )
-            .from(
-                [titulo, subtit, reserva],
-                {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                },
-                "<",
-            );
+        .from([aladin, chica], {
+            x: (i) => (i === 0 ? -60 : 60),
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.8")
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(icono, {
+            scale: 0.5,
+            opacity: 0,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+        }, "-=0.4")
+        .from([titulo, subtit, reserva], {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        }, "-=0.4");
     }
 
     document.addEventListener("DOMContentLoaded", initCV);
     document.addEventListener("astro:page-load", initCV);
 </script>
+

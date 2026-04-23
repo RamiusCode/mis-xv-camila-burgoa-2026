@@ -38,35 +38,35 @@
             >
                 <p
                     id="fecha-magica"
-                    class="font-cormorant-sc text-[11px] uppercase tracking-[0.4em] text-[#07c4c7]/80 m-0"
+                    class="font-cormorant-sc text-[10px] uppercase tracking-[0.35em] text-[#07c4c7]/80 m-0"
                 >
                     ✦ Una noche mágica ✦
                 </p>
 
                 <p
                     id="fecha-dia"
-                    class="font-crimson text-[28px] uppercase tracking-[0.3em] text-[#07c4c7] m-0 font-bold leading-none mt-[4px]"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
                 >
                     Sábado
                 </p>
 
                 <p
                     id="fecha-numero"
-                    class="font-great-vibes text-[110px] text-[#c8960c] leading-[0.85] m-0 [text-shadow:0_2px_28px_rgba(200,150,12,0.65)]"
+                    class="font-great-vibes text-[90px] text-[#c8960c] leading-[0.9] m-0 [text-shadow:0_2px_18px_rgba(200,150,12,0.4)]"
                 >
                     9
                 </p>
 
                 <p
                     id="fecha-mes"
-                    class="font-crimson text-[28px] uppercase tracking-[0.3em] text-[#c8960c] m-0 font-bold leading-none"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7] m-0 font-bold leading-none"
                 >
                     Mayo
                 </p>
 
                 <p
                     id="fecha-anio"
-                    class="font-crimson text-[18px] uppercase tracking-[0.25em] text-[#07c4c7] m-0 font-normal leading-none mt-[6px]"
+                    class="font-crimson text-[20px] uppercase tracking-[0.1em] text-[#07c4c7]/70 m-0 font-bold leading-none mt-[2px]"
                 >
                     2026
                 </p>
@@ -102,52 +102,8 @@
         });
 
         // 1. Botella + Chica entran desde los lados
-        tl.from(botella, {
-            x: -70,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            onComplete: () => {
-                gsap.to(botella, {
-                    y: -8,
-                    duration: 2.8,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(botella, {
-                    rotation: 2.5,
-                    transformOrigin: "bottom center",
-                    duration: 3.8,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
-          }, 0)
-          .from(chica, {
-            x: 70,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            onComplete: () => {
-                gsap.to(chica, {
-                    y: -12,
-                    duration: 2.4,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(chica, {
-                    rotation: 3,
-                    transformOrigin: "center bottom",
-                    duration: 3.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
-          }, 0);
+        tl.from(botella, { x: -70, opacity: 0, duration: 1, ease: "power3.out" }, 0)
+          .from(chica, { x: 70, opacity: 0, duration: 1, ease: "power3.out" }, 0);
 
         // 2. Marco aparece
         tl.from(marco, { scale: 0.92, opacity: 0, duration: 1, ease: "power2.out" }, 0.3);

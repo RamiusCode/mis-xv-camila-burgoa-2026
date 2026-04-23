@@ -1,0 +1,105 @@
+---
+// Mensaje.astro
+---
+
+<div
+    id="dedicatoria-contenedor"
+    data-entrada
+    class="relative w-full overflow-hidden flex items-center justify-center px-[16px] pt-[4px]"
+>
+    <!-- MARCO → cambia max-w-[400px] para el ancho -->
+    <div class="relative w-full max-w-[400px]">
+        <!-- IMAGEN DEL MARCO -->
+        <img
+            id="dedicatoria-marco"
+            src="/imagenes/marco.png"
+            alt=""
+            class="w-full h-auto block pointer-events-none select-none"
+        />
+
+        <!-- TEXTO DENTRO DEL MARCO -->
+        <!-- px-[72px] = separación horizontal del texto al borde del marco -->
+        <!-- py-[88px] = separación vertical del texto al borde del marco  -->
+        <div
+            class="absolute inset-0 flex items-center justify-center px-[40px] pt-[10px]"
+        >
+            <!-- text-[18px] = tamaño del texto -->
+            <!-- leading-[1.8] = espaciado entre líneas -->
+            <p id="dedicatoria-texto" class="font-charm text-[16px] text-[#4a3728] text-center m-0">
+                Hoy celebro con alegría <br />mis 15 años, un viaje lleno de<br
+                />
+                momentos especiales y sueños <br />por cumplir. <br />Gracias a
+                todos los que han <br />sido parte de mi vida cada <br /> uno de ustedes
+                ha hecho este<br />
+                camino más mágico y hermoso.<br /> Que esta nueva etapa sea tan
+                <br />brillante como las estrellas<br /> que me rodean, y que cada<br
+                />
+                paso me acerque más <br />a mis sueños.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    (window as any).iniciarAnimacionDedicatoria = () => {
+        const marco = document.getElementById("dedicatoria-marco");
+        const texto = document.getElementById("dedicatoria-texto");
+        const contenedor = document.getElementById("dedicatoria-contenedor");
+
+        if (!marco || !texto || !contenedor) return;
+
+        const tl = gsap.timeline();
+        tl.from(marco, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        })
+        .from(texto, {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: "power3.out",
+        }, "-=0.6");
+    };
+
+    function setupDedicatoriaScroll() {
+        const contenedor = document.getElementById("dedicatoria-contenedor");
+        if (!contenedor) return;
+
+        const marco = document.getElementById("dedicatoria-marco");
+        const texto = document.getElementById("dedicatoria-texto");
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        })
+        .from(marco, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        })
+        .from(texto, {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: "power3.out",
+        }, "-=0.6");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!document.getElementById("portada-sobre")) {
+            setupDedicatoriaScroll();
+        }
+    });
+</script>
+
+

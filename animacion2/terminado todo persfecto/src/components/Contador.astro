@@ -126,13 +126,19 @@
             }
         });
 
-        tl.from(caja, {
+        tl.from(personaje, {
+            y: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(caja, {
             y: 40,
             scale: 0.95,
             opacity: 0,
             duration: 1,
             ease: "power2.out",
-        })
+        }, "-=0.8")
         .from(titulo, {
             opacity: 0,
             duration: 0.8,
@@ -143,13 +149,7 @@
             y: 10,
             duration: 0.8,
             ease: "power2.out",
-        }, "-=0.4")
-        .from(personaje, {
-            y: 60,
-            opacity: 0,
-            duration: 1.3,
-            ease: "power3.out",
-        }, "-=0.6");
+        }, "-=0.4");
     }
 
     document.addEventListener("DOMContentLoaded", initContador);

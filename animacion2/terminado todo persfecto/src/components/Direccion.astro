@@ -48,7 +48,6 @@
             >
                 <!-- ÍCONO UBICACIÓN -->
                 <img
-                    id="dir-ubicacion"
                     src="/imagenes/ubicacion.png"
                     alt=""
                     class="icono-dorado w-[32px] h-auto pointer-events-none select-none mb-[4px]"
@@ -78,9 +77,9 @@
             href="https://maps.app.goo.gl/1xvEWDaJJMy2WE1JA"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-[24px] flex items-center justify-center gap-[8px] w-[65%] py-[14px]
+            class="mt-[24px] flex items-center gap-[8px] px-[32px] py-[12px]
                    bg-[#c8960c] text-white
-                   font-cormorant-sc text-[15px] uppercase tracking-[0.2em] whitespace-nowrap
+                   font-cormorant-sc text-[18px] uppercase tracking-[0.3em]
                    rounded-full
                    [box-shadow:0_6px_0_#8a6408,0_8px_16px_rgba(200,150,12,0.45)]
                    active:[box-shadow:0_2px_0_#8a6408,0_3px_8px_rgba(200,150,12,0.35)]
@@ -126,24 +125,6 @@
             opacity: 0,
             duration: 1.2,
             ease: "power3.out",
-            onComplete: () => {
-                gsap.to(personaje6, {
-                    rotation: 2.5,
-                    transformOrigin: "bottom center",
-                    duration: 2.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(personaje7, {
-                    rotation: 2.5,
-                    transformOrigin: "bottom center",
-                    duration: 3.1,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         })
         .from(marco, {
             scale: 0.9,
@@ -156,24 +137,12 @@
             y: 20,
             duration: 0.8,
             ease: "power2.out",
-            onComplete: () => {
-                const ubicacion = document.getElementById("dir-ubicacion");
-                if (!ubicacion) return;
-                gsap.to(ubicacion, {
-                    scale: 1.15,
-                    duration: 1.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
         }, "-=0.6")
         .from(boton, {
             scale: 0.5,
             opacity: 0,
             duration: 1,
             ease: "back.out(1.7)",
-            clearProps: "all",
         }, "-=0.4");
     }
 

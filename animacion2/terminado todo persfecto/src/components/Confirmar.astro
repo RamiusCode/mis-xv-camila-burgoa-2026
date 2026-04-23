@@ -8,22 +8,6 @@
 >
     <div class="relative w-full max-w-[550px] flex flex-col items-center">
         <div class="relative w-full">
-            <!-- ALADIN (abajo izquierda) -->
-            <img
-                id="conf-aladin"
-                src="/imagenes/aladin.png"
-                alt="Personaje"
-                class="absolute bottom-[-5%] left-[-10%] z-[15] pointer-events-none select-none w-[80px] h-auto"
-            />
-
-            <!-- CHICA ALADINA (abajo derecha) -->
-            <img
-                id="conf-chica"
-                src="/imagenes/chicaaladina.png"
-                alt="Personaje"
-                class="absolute bottom-[-5%] right-[-10%] z-[15] pointer-events-none select-none w-[75px] h-auto"
-            />
-
             <img
                 id="conf-marco"
                 src="/imagenes/marco5.png"
@@ -51,9 +35,9 @@
             href="https://wa.link/dzqoak"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-[20px] flex items-center justify-center w-[75%] py-[14px]
+            class="mt-[20px] flex items-center justify-center px-8 py-3
                    bg-[#c8960c] text-white
-                   font-cormorant-sc text-[15px] uppercase tracking-[0.15em] whitespace-nowrap
+                   font-cormorant-sc text-[14px] uppercase tracking-[0.25em]
                    rounded-full
                    [box-shadow:0_4px_0_#8a6408,0_6px_12px_rgba(200,150,12,0.4)]
                    active:[box-shadow:0_1px_0_#8a6408,0_2px_4px_rgba(200,150,12,0.3)]
@@ -84,8 +68,6 @@
         const contenido = document.getElementById("conf-contenido");
         const boton = document.getElementById("conf-boton");
         const esperamos = document.getElementById("conf-esperamos");
-        const aladin = document.getElementById("conf-aladin");
-        const chica = document.getElementById("conf-chica");
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -95,36 +77,12 @@
             },
         });
 
-        tl.from([aladin, chica], {
-            x: (i) => (i === 0 ? -60 : 60),
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out",
-            onComplete: () => {
-                gsap.to(aladin, {
-                    rotation: 2.5,
-                    transformOrigin: "bottom center",
-                    duration: 2.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-                gsap.to(chica, {
-                    rotation: 2.5,
-                    transformOrigin: "bottom center",
-                    duration: 3.1,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
-        })
-        .from(marco, {
+        tl.from(marco, {
             scale: 0.95,
             opacity: 0,
             duration: 1.2,
             ease: "power2.out",
-        }, "-=0.8")
+        })
             .from(
                 contenido,
                 {

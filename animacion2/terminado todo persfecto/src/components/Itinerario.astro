@@ -269,8 +269,7 @@
 
         const card = document.getElementById("iti-card");
         const titulo = document.getElementById("iti-titulo");
-        const estrellas = seccion.querySelectorAll(".iti-animate.flex");
-        const filas = seccion.querySelectorAll(".iti-animate.grid");
+        const items = seccion.querySelectorAll(".iti-animate");
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -280,36 +279,51 @@
             }
         });
 
-        // 1. Card entra elegante
+        // Animación inicial de la tarjeta y título
         tl.from(card, {
             opacity: 0,
-            y: 50,
-            scale: 0.97,
-            duration: 1.1,
-            ease: "power3.out",
+            y: 40,
+            duration: 1,
+            ease: "power2.out",
         })
-        // 2. Título entra desde arriba
         .from(titulo, {
             opacity: 0,
-            y: -24,
-            duration: 0.9,
+            y: -20,
+            duration: 0.8,
             ease: "power2.out",
-        }, "-=0.7")
-        // 3. Todas las estrellas al mismo tiempo
-        .from(estrellas, {
-            opacity: 0,
-            scale: 0,
-            duration: 0.7,
-            ease: "back.out(2)",
-        }, "-=0.3");
+        }, "-=0.6");
 
-        // 4. Cada fila: ícono y texto entran al mismo tiempo desde lados opuestos
-        filas.forEach((fila) => {
-            const left = fila.children[0];
-            const right = fila.children[1];
-            tl.from(left,  { x: -30, opacity: 0, duration: 0.8, ease: "power2.out" }, "<")
-              .from(right, { x:  30, opacity: 0, duration: 0.8, ease: "power2.out" }, "<");
+        // Animación suave y delicada de todos los hitos al mismo tiempo
+        items.forEach((item) => {
+            if (item.classList.contains('flex')) {
+                // Es una estrella
+                tl.from(item, {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power2.out"
+                }, 0.5);
+            } else if (item.classList.contains('grid')) {
+                // Es una fila de evento (2 columnas)
+                const leftCol = item.children[0];
+                const rightCol = item.children[1];
+
+                tl.from(leftCol, {
+                    x: -20,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, 0.5)
+                .from(rightCol, {
+                    x: 20,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, 0.5);
+            }
         });
+
+
     }
 
     document.addEventListener("DOMContentLoaded", initItinerario);
