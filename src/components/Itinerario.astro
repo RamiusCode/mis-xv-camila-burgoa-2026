@@ -2,16 +2,17 @@
 
 ---
 
-<section class="px-4 relative overflow-hidden py-6">
+<section id="iti-seccion" class="px-4 relative overflow-hidden py-6">
     <div class="max-w-5xl mx-auto relative z-10">
         <div class="max-w-3xl mx-auto relative">
             <!-- CARD -->
             <div
+                id="iti-card"
                 class="rounded-2xl border border-[#c8960c]/30 px-6 py-8 md:px-10 md:py-10"
                 style="background: rgba(255,255,255,0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
             >
                 <!-- Título -->
-                <div class="text-center mb-6">
+                <div id="iti-titulo" class="text-center mb-6">
                     <h2
                         class="font-great-vibes text-[38px] text-[#c8960c] mb-3"
                     >
@@ -42,7 +43,7 @@
                         <!-- Puedes copiar este bloque para más eventos -->
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -51,7 +52,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="flex justify-center">
                                 <img
                                     src="/iconos/recepcion.png"
@@ -71,7 +72,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -80,7 +81,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="text-center">
                                 <p
                                     class="font-charm text-lg md:text-2xl text-[#07c4c7] font-bold"
@@ -100,7 +101,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -109,7 +110,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="flex justify-center">
                                 <img
                                     src="/iconos/brindis.png"
@@ -129,7 +130,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -138,7 +139,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="text-center">
                                 <p
                                     class="font-charm text-lg md:text-2xl text-[#07c4c7] font-bold"
@@ -158,7 +159,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -167,7 +168,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="flex justify-center">
                                 <img
                                     src="/iconos/musica.png"
@@ -187,7 +188,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -196,7 +197,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="text-center">
                                 <p
                                     class="font-charm text-lg md:text-2xl text-[#07c4c7] font-bold"
@@ -216,7 +217,7 @@
                         </div>
 
                         <!-- Estrella -->
-                        <div class="flex justify-center">
+                        <div class="flex justify-center iti-animate">
                             <div
                                 class="w-8 h-8 rounded-full bg-[#c8960c] flex items-center justify-center shadow-md"
                             >
@@ -225,7 +226,7 @@
                         </div>
 
                         <!-- Evento -->
-                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 py-1 iti-animate">
                             <div class="flex justify-center">
                                 <img
                                     src="/iconos/fin-fiesta.png"
@@ -249,6 +250,87 @@
         </div>
     </div>
 </section>
+
+<style>
+    .dorado-filter {
+        filter: brightness(0) saturate(100%) invert(35%) sepia(80%)
+            saturate(300%) hue-rotate(150deg) brightness(85%) contrast(90%);
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initItinerario() {
+        const seccion = document.getElementById("iti-seccion");
+        if (!seccion) return;
+
+        const card = document.getElementById("iti-card");
+        const titulo = document.getElementById("iti-titulo");
+        const items = seccion.querySelectorAll(".iti-animate");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: seccion,
+                start: "top 80%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        // Animación inicial de la tarjeta y título
+        tl.from(card, {
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            ease: "power2.out",
+        })
+        .from(titulo, {
+            opacity: 0,
+            y: -20,
+            duration: 0.8,
+            ease: "power2.out",
+        }, "-=0.6");
+
+        // Animación suave y delicada de todos los hitos al mismo tiempo
+        items.forEach((item) => {
+            if (item.classList.contains('flex')) {
+                // Es una estrella
+                tl.from(item, {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power2.out"
+                }, 0.5);
+            } else if (item.classList.contains('grid')) {
+                // Es una fila de evento (2 columnas)
+                const leftCol = item.children[0];
+                const rightCol = item.children[1];
+
+                tl.from(leftCol, {
+                    x: -20,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, 0.5)
+                .from(rightCol, {
+                    x: 20,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, 0.5);
+            }
+        });
+
+
+    }
+
+    document.addEventListener("DOMContentLoaded", initItinerario);
+    document.addEventListener("astro:page-load", initItinerario);
+</script>
+
+
 
 <style>
     .dorado-filter {

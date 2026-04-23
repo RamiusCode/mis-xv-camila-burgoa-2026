@@ -41,8 +41,7 @@
                    rounded-full
                    [box-shadow:0_4px_0_#8a6408,0_6px_12px_rgba(200,150,12,0.4)]
                    active:[box-shadow:0_1px_0_#8a6408,0_2px_4px_rgba(200,150,12,0.3)]
-                   active:translate-y-[3px]
-                   transition-all duration-150"
+                   active:translate-y-[3px]"
         >
             Confirmar Asistencia
         </a>
@@ -55,3 +54,75 @@
         </p>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initConfirmar() {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
+
+        const marco = document.getElementById("conf-marco");
+        const contenido = document.getElementById("conf-contenido");
+        const boton = document.getElementById("conf-boton");
+        const esperamos = document.getElementById("conf-esperamos");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top bottom", // Se activa en cuanto asoma por abajo
+                toggleActions: "play none none reset",
+            },
+        });
+
+        tl.from(marco, {
+            scale: 0.95,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        })
+            .from(
+                contenido,
+                {
+                    opacity: 0,
+                    y: 15,
+                    duration: 1.2,
+                    ease: "power2.out",
+                },
+                "-=0.8",
+            )
+            .fromTo(
+                boton,
+                {
+                    scale: 0.8,
+                    opacity: 0,
+                },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "back.out(1.4)",
+                    clearProps: "all", // Limpia estilos al terminar para que el CSS active funcione
+                },
+                "-=0.6",
+            )
+            .from(
+                esperamos,
+                {
+                    opacity: 0,
+                    y: -10,
+                    duration: 1.5,
+                    ease: "power2.out",
+                },
+                "-=0.4",
+            );
+    }
+
+    document.addEventListener("DOMContentLoaded", initConfirmar);
+    document.addEventListener("astro:page-load", initConfirmar);
+</script>
+
+
+

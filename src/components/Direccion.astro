@@ -95,3 +95,58 @@
         </a>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initDireccion() {
+        const contenedor = document.getElementById("dir-contenedor");
+        if (!contenedor) return;
+
+        const personaje6 = document.getElementById("dir-personaje6");
+        const personaje7 = document.getElementById("dir-personaje7");
+        const marco = document.getElementById("dir-marco");
+        const contenido = document.getElementById("dir-icono");
+        const boton = document.getElementById("dir-boton");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from([personaje6, personaje7], {
+            x: (i) => (i === 0 ? -60 : 60),
+            y: 20,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.8")
+        .from(contenido, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: "power2.out",
+        }, "-=0.6")
+        .from(boton, {
+            scale: 0.5,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.4");
+    }
+
+    document.addEventListener("DOMContentLoaded", initDireccion);
+    document.addEventListener("astro:page-load", initDireccion);
+</script>
+

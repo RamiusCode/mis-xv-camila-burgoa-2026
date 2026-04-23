@@ -72,3 +72,65 @@
         </div>
     </div>
 </section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initSugerencia() {
+        const contenedor = document.getElementById("sug-contenedor");
+        if (!contenedor) return;
+
+        const titulo = document.getElementById("sug-titulo");
+        const mensaje = document.getElementById("sug-mensaje");
+        const card = document.getElementById("sug-card");
+        const qr = document.getElementById("sug-qr");
+        const nombre = document.getElementById("sug-nombre");
+        const sobres = document.getElementById("sug-sobres");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(titulo, {
+            y: -20,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        })
+        .from(mensaje, {
+            y: 20,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        }, "-=0.8")
+        .from(card, {
+            scale: 0.95,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.8")
+        .from(qr, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.6")
+        .from([nombre, sobres], {
+            opacity: 0,
+            y: 10,
+            duration: 1,
+            stagger: 0.3,
+            ease: "power2.out",
+        }, "-=0.4");
+    }
+
+    document.addEventListener("DOMContentLoaded", initSugerencia);
+    document.addEventListener("astro:page-load", initSugerencia);
+</script>
+

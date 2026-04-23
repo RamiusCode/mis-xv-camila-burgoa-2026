@@ -30,3 +30,43 @@
         class="absolute bottom-2 left-2 w-24 md:w-32"
     />
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initRestriccion() {
+        const contenedor = document.getElementById("rest-contenedor");
+        if (!contenedor) return;
+
+        const marco = document.getElementById("rest-marco-wrap");
+        const lampara = document.getElementById("rest-lampara");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        })
+        .from(lampara, {
+            x: -40,
+            y: 40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.8");
+    }
+
+    document.addEventListener("DOMContentLoaded", initRestriccion);
+    document.addEventListener("astro:page-load", initRestriccion);
+</script>
+
