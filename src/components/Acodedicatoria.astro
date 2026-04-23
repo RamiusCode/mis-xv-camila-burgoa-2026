@@ -31,7 +31,7 @@
             id="acoded-nombre"
             class="font-great-vibes text-[52px] text-[#c8960c] leading-[1.1] m-0"
         >
-            Camila Burgoa
+            Camila Amaral
         </h1>
 
         <!-- TEXTO INFERIOR -->
@@ -63,7 +63,7 @@
                 trigger: contenedor,
                 start: "top 85%",
                 toggleActions: "play none none reset",
-            }
+            },
         });
 
         tl.from(lampara, {
@@ -81,27 +81,38 @@
                 });
             },
         })
-        .from(textoSup, {
-            y: 20,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-        }, "-=0.8")
-        .from(nombre, {
-            scale: 0.8,
-            opacity: 0,
-            duration: 1.2,
-            ease: "back.out(1.7)",
-        }, "-=0.7")
-        .from(textoInf, {
-            y: 20,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-        }, "-=0.9");
+            .from(
+                textoSup,
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.8",
+            )
+            .from(
+                nombre,
+                {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "back.out(1.7)",
+                },
+                "-=0.7",
+            )
+            .from(
+                textoInf,
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.9",
+            );
     }
 
     document.addEventListener("DOMContentLoaded", initAcodedicatoria);
     document.addEventListener("astro:page-load", initAcodedicatoria);
 </script>
-
