@@ -43,3 +43,56 @@
         </p>
     </div>
 </div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initAcodedicatoria() {
+        const contenedor = document.getElementById("acoded-contenedor");
+        if (!contenedor) return;
+
+        const lampara = document.getElementById("acoded-lampara");
+        const textoSup = document.getElementById("acoded-texto-sup");
+        const nombre = document.getElementById("acoded-nombre");
+        const textoInf = document.getElementById("acoded-texto-inf");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
+        });
+
+        tl.from(lampara, {
+            y: -40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(textoSup, {
+            y: 20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.8")
+        .from(nombre, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        }, "-=0.7")
+        .from(textoInf, {
+            y: 20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.9");
+    }
+
+    document.addEventListener("DOMContentLoaded", initAcodedicatoria);
+    document.addEventListener("astro:page-load", initAcodedicatoria);
+</script>
+

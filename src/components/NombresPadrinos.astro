@@ -77,54 +77,62 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initPadrinos = () => {
-        const contenedor  = document.getElementById("padrinos-contenedor");
-        const lamparaIzq  = document.getElementById("padrinos-lampara-izq");
-        const lamparaDer  = document.getElementById("padrinos-lampara-der");
-        const separador   = document.getElementById("padrinos-separador");
-        const titulo      = document.getElementById("padrinos-titulo");
-        const marco       = document.getElementById("padrinos-marco");
-        const nombres     = document.getElementById("padrinos-nombres");
+    function initPadrinos() {
+        const contenedor = document.getElementById("padrinos-contenedor");
         if (!contenedor) return;
 
-        const reset = () => {
-            gsap.set(lamparaIzq,  { x: -110, opacity: 0 });
-            gsap.set(lamparaDer,  { x:  110, opacity: 0 });
-            gsap.set(separador,   { scaleX: 0, opacity: 0 });
-            gsap.set(titulo,      { y: 20, opacity: 0 });
-            gsap.set(marco,       { scale: 0.92, opacity: 0 });
-            gsap.set(nombres,     { opacity: 0 });
-        };
-        reset();
+        const separador = document.getElementById("padrinos-separador");
+        const titulo = document.getElementById("padrinos-titulo");
+        const lamparaIzq = document.getElementById("padrinos-lampara-izq");
+        const lamparaDer = document.getElementById("padrinos-lampara-der");
+        const marco = document.getElementById("padrinos-marco");
+        const nombres = document.getElementById("padrinos-nombres");
 
-        const tl = gsap.timeline({ paused: true });
-
-        // 1. Wrappers de lámparas entran desde los bordes simultáneamente
-        tl.to(lamparaIzq, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-        tl.to(lamparaDer, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
-
-        // 2. Separador se expande + título sube
-        tl.to(separador, { scaleX: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.3");
-        tl.to(titulo,    { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6");
-
-        // 3. Marco aparece con scale
-        tl.to(marco,  { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.2");
-
-        // 4. Nombres fade in
-        tl.to(nombres, { opacity: 1, duration: 0.7, ease: "power2.out" }, "-=0.2");
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => { tl.pause(0); reset(); },
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
         });
-    };
+
+        tl.from(separador, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        })
+        .from(titulo, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from([lamparaIzq, lamparaDer], {
+            x: (i) => (i === 0 ? -30 : 30),
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        }, "-=0.7")
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+        }, "-=1")
+        .from(nombres, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut",
+        }, "-=0.8");
+    }
 
     document.addEventListener("DOMContentLoaded", initPadrinos);
-</script> -->
+    document.addEventListener("astro:page-load", initPadrinos);
+</script>
+

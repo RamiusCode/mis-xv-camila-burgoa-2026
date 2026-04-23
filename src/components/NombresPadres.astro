@@ -53,52 +53,54 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    const initPadres = () => {
-        const contenedor  = document.getElementById("padres-contenedor");
-        const personaje   = document.getElementById("padres-personaje");
-        const titulo      = document.getElementById("padres-titulo");
-        const marco       = document.getElementById("padres-marco");
-        const nombres     = document.getElementById("padres-nombres");
+    function initPadres() {
+        const contenedor = document.getElementById("padres-contenedor");
         if (!contenedor) return;
 
-        // Estado inicial oculto
-        gsap.set(personaje, { x: -120, opacity: 0 });
-        gsap.set(titulo,    { y: 20, opacity: 0 });
-        gsap.set(marco,     { scale: 0.92, opacity: 0 });
-        gsap.set(nombres,   { opacity: 0 });
+        const personaje = document.getElementById("padres-personaje");
+        const titulo = document.getElementById("padres-titulo");
+        const marco = document.getElementById("padres-marco");
+        const nombres = document.getElementById("padres-nombres");
 
-        const tl = gsap.timeline({ paused: true });
-
-        // 1. Personaje entra desde la izquierda
-        tl.to(personaje, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" });
-
-        // 2. Título sube suave (ligeramente antes de que termine el personaje)
-        tl.to(titulo, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.3");
-
-        // 3. Marco aparece con ligero scale
-        tl.to(marco, { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.2");
-
-        // 4. Nombres hacen fade in suave
-        tl.to(nombres, { opacity: 1, duration: 0.7, ease: "power2.out" }, "-=0.2");
-
-        ScrollTrigger.create({
-            trigger: contenedor,
-            start: "top 98%",
-            onEnter: () => tl.restart(),
-            onLeaveBack: () => {
-                tl.pause(0);
-                gsap.set(personaje, { x: -120, opacity: 0 });
-                gsap.set(titulo,    { y: 20, opacity: 0 });
-                gsap.set(marco,     { scale: 0.92, opacity: 0 });
-                gsap.set(nombres,   { opacity: 0 });
-            },
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            }
         });
-    };
+
+        tl.from(personaje, {
+            x: -80,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        })
+        .from(titulo, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=1") // Casi al mismo tiempo
+        .from(marco, {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+        }, "-=0.8")
+        .from(nombres, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.6");
+    }
 
     document.addEventListener("DOMContentLoaded", initPadres);
-</script> -->
+    document.addEventListener("astro:page-load", initPadres);
+</script>
+
