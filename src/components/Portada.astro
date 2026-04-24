@@ -56,7 +56,7 @@ const { nombre, pase } = Astro.props;
         <!-- ── SOBRE + LÁMPARA + TEXTO ── -->
         <div
             id="div-sobre"
-            class="relative flex-shrink-0 cursor-pointer w-[22rem] h-[22rem]"
+            class="relative flex-shrink-0 cursor-pointer w-[min(22rem,44vh)] h-[min(22rem,44vh)]"
         >
             <img
                 src="/imagenes/sobre.png"
@@ -68,12 +68,12 @@ const { nombre, pase } = Astro.props;
                 id="lampara"
                 src="/imagenes/lampara.png"
                 alt="Lámpara mágica"
-                class="absolute top-10 left-1/2 -translate-x-1/2 z-10 w-16 pointer-events-none drop-shadow-xl"
+                class="absolute top-[11%] left-1/2 -translate-x-1/2 z-10 w-16 pointer-events-none drop-shadow-xl"
             />
 
             <p
                 id="texto-click"
-                class="absolute top-28 left-1/2 -translate-x-1/2 z-10
+                class="absolute top-[32%] left-1/2 -translate-x-1/2 z-10
                        font-crimson uppercase text-center text-base leading-relaxed
                        text-[#f5e6a8] whitespace-nowrap pointer-events-none m-0
                        [text-shadow:0_2px_10px_rgba(0,0,0,0.95),0_0_20px_rgba(0,0,0,0.7)]"
@@ -89,7 +89,7 @@ const { nombre, pase } = Astro.props;
         </div>
 
         <!-- ── ZONA ETIQUETA ── -->
-        <div class="w-full flex items-center justify-center pb-4">
+        <div class="w-full flex items-center justify-center pb-4 md:pb-8">
             <div class="relative w-full max-w-sm scale-110">
                 <img
                     src="/imagenes/etiqueta.png"
