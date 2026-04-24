@@ -1,10 +1,5 @@
 ---
 // Portada.astro
-interface Props {
-    nombre: string;
-    pase: number;
-}
-const { nombre, pase } = Astro.props;
 ---
 
 <section
@@ -109,7 +104,7 @@ const { nombre, pase } = Astro.props;
                     <p
                         class="m-0 font-charm text-[#ffffff] text-lg leading-tight text-center"
                     >
-                        {nombre}
+                        Pamela Rodriguez Mendoza
                     </p>
 
                     <div class="h-px w-2/3 bg-[#ffffff] opacity-25 my-0.5">
@@ -128,8 +123,7 @@ const { nombre, pase } = Astro.props;
                         <p
                             class="m-0 font-charm text-[#ffffff] text-sm tracking-wide leading-none"
                         >
-                            Pase válido · {pase}
-                            {pase === 1 ? "persona" : "personas"}
+                            Pase válido · 1 persona
                         </p>
                     </div>
                 </div>
@@ -143,10 +137,9 @@ const { nombre, pase } = Astro.props;
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
+    // ── PARTÍCULAS ESTRELLAS ──
     (function iniciarEstrellas() {
-        const canvas = document.getElementById(
-            "canvas-estrellas",
-        ) as HTMLCanvasElement;
+        const canvas = document.getElementById("canvas-estrellas") as HTMLCanvasElement;
         if (!canvas) return;
         const ctx = canvas.getContext("2d")!;
 
@@ -157,27 +150,8 @@ const { nombre, pase } = Astro.props;
         resize();
         window.addEventListener("resize", resize);
 
-        const colores = [
-            "255,255,255",
-            "245,200,66",
-            "255,232,150",
-            "220,210,255",
-        ];
-        type Estrella = {
-            x: number;
-            y: number;
-            radio: number;
-            color: string;
-            alfa: number;
-            alfaMin: number;
-            alfaMax: number;
-            alfaVel: number;
-            vx: number;
-            vy: number;
-            pulso: number;
-            pulsoVel: number;
-            tipo: "punto" | "cruz";
-        };
+        const colores = ["255,255,255", "245,200,66", "255,232,150", "220,210,255"];
+        type Estrella = { x: number; y: number; radio: number; color: string; alfa: number; alfaMin: number; alfaMax: number; alfaVel: number; vx: number; vy: number; pulso: number; pulsoVel: number; tipo: "punto" | "cruz"; };
         const CANTIDAD = 90;
         const estrellas: Estrella[] = [];
 
@@ -185,9 +159,7 @@ const { nombre, pase } = Astro.props;
             const alfaMax = 0.4 + Math.random() * 0.6;
             return {
                 x: Math.random() * canvas.width,
-                y: forzarYAbajo
-                    ? canvas.height + Math.random() * 40
-                    : Math.random() * canvas.height,
+                y: forzarYAbajo ? canvas.height + Math.random() * 40 : Math.random() * canvas.height,
                 radio: 0.6 + Math.random() * 2.2,
                 color: colores[Math.floor(Math.random() * colores.length)],
                 alfa: Math.random() * alfaMax,
@@ -222,35 +194,24 @@ const { nombre, pase } = Astro.props;
             ctx.shadowColor = `rgb(${e.color})`;
             ctx.shadowBlur = 8;
             ctx.beginPath();
-            ctx.moveTo(e.x - r, e.y);
-            ctx.lineTo(e.x + r, e.y);
+            ctx.moveTo(e.x - r, e.y); ctx.lineTo(e.x + r, e.y);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(e.x, e.y - r);
-            ctx.lineTo(e.x, e.y + r);
+            ctx.moveTo(e.x, e.y - r); ctx.lineTo(e.x, e.y + r);
             ctx.stroke();
             const rd = r * 0.5;
             ctx.lineWidth = e.radio * 0.3;
             ctx.beginPath();
-            ctx.moveTo(e.x - rd, e.y - rd);
-            ctx.lineTo(e.x + rd, e.y + rd);
+            ctx.moveTo(e.x - rd, e.y - rd); ctx.lineTo(e.x + rd, e.y + rd);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(e.x + rd, e.y - rd);
-            ctx.lineTo(e.x - rd, e.y + rd);
+            ctx.moveTo(e.x + rd, e.y - rd); ctx.lineTo(e.x - rd, e.y + rd);
             ctx.stroke();
             ctx.restore();
         };
 
         const dibujarPunto = (e: Estrella) => {
-            const glow = ctx.createRadialGradient(
-                e.x,
-                e.y,
-                0,
-                e.x,
-                e.y,
-                e.radio * 4,
-            );
+            const glow = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.radio * 4);
             glow.addColorStop(0, `rgba(${e.color},${e.alfa})`);
             glow.addColorStop(0.5, `rgba(${e.color},${e.alfa * 0.3})`);
             glow.addColorStop(1, `rgba(${e.color},0)`);
@@ -269,26 +230,18 @@ const { nombre, pase } = Astro.props;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (const e of estrellas) {
                 e.pulso += e.pulsoVel;
-                e.alfa =
-                    e.alfaMin +
-                    (Math.sin(e.pulso) * 0.5 + 0.5) * (e.alfaMax - e.alfaMin);
-                e.x += e.vx;
-                e.y += e.vy;
-                if (e.tipo === "cruz") dibujarCruz(e);
-                else dibujarPunto(e);
+                e.alfa = e.alfaMin + (Math.sin(e.pulso) * 0.5 + 0.5) * (e.alfaMax - e.alfaMin);
+                e.x += e.vx; e.y += e.vy;
+                if (e.tipo === "cruz") dibujarCruz(e); else dibujarPunto(e);
                 if (e.y < -20) Object.assign(e, crearEstrella(true));
             }
             animId = requestAnimationFrame(animar);
         };
         animar();
 
-        document.getElementById("btn-sobre")?.addEventListener(
-            "click",
-            () => {
-                cancelAnimationFrame(animId);
-            },
-            { once: true },
-        );
+        document.getElementById("btn-sobre")?.addEventListener("click", () => {
+            cancelAnimationFrame(animId);
+        }, { once: true });
     })();
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -301,129 +254,38 @@ const { nombre, pase } = Astro.props;
         const btnSobre = document.getElementById("btn-sobre")!;
         const tl = gsap.timeline();
 
-        tl.from(
-            "section#portada-sobre > img",
-            { opacity: 0, duration: 2, ease: "power2.out" },
-            0,
-        );
-        tl.from(
-            "#portada-sobre .text-center > p",
-            { opacity: 0, y: -20, duration: 1, ease: "power3.out" },
-            0.3,
-        );
+        tl.from("section#portada-sobre > img", { opacity: 0, duration: 2, ease: "power2.out" }, 0);
+        tl.from("#portada-sobre .text-center > p", { opacity: 0, y: -20, duration: 1, ease: "power3.out" }, 0.3);
 
-        const h1 = document.querySelector<HTMLElement>(
-            "#portada-sobre .text-center > h1",
-        );
+        const h1 = document.querySelector<HTMLElement>("#portada-sobre .text-center > h1");
         if (h1) {
             const texto = h1.textContent ?? "";
-            h1.innerHTML = texto
-                .split("")
-                .map((c) =>
-                    c === " "
-                        ? `<span style="display:inline-block">&nbsp;</span>`
-                        : `<span style="display:inline-block">${c}</span>`,
-                )
-                .join("");
-            tl.from(
-                h1.querySelectorAll("span"),
-                {
-                    opacity: 0,
-                    y: 6,
-                    duration: 0.05,
-                    stagger: 0.055,
-                    ease: "power1.out",
-                },
-                0.7,
-            );
-            tl.fromTo(
-                h1,
-                { filter: "drop-shadow(0 0 0px rgba(245,200,66,0))" },
-                {
-                    filter: "drop-shadow(0 0 14px rgba(245,200,66,0.9))",
-                    duration: 0.7,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        gsap.to(h1, {
-                            filter: "drop-shadow(0 0 6px rgba(245,200,66,0.35))",
-                            duration: 2.2,
-                            ease: "sine.inOut",
-                            yoyo: true,
-                            repeat: -1,
-                        });
-                    },
-                },
-                0.7 + texto.length * 0.055 + 0.1,
-            );
+            h1.innerHTML = texto.split("").map(c => c === " " ? `<span style="display:inline-block">&nbsp;</span>` : `<span style="display:inline-block">${c}</span>`).join("");
+            tl.from(h1.querySelectorAll("span"), { opacity: 0, y: 6, duration: 0.05, stagger: 0.055, ease: "power1.out" }, 0.7);
+            tl.fromTo(h1, { filter: "drop-shadow(0 0 0px rgba(245,200,66,0))" }, {
+                filter: "drop-shadow(0 0 14px rgba(245,200,66,0.9))", duration: 0.7, ease: "power2.out",
+                onComplete: () => {
+                    gsap.to(h1, { filter: "drop-shadow(0 0 6px rgba(245,200,66,0.35))", duration: 2.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+                }
+            }, 0.7 + texto.length * 0.055 + 0.1);
         }
 
-        tl.from(
-            "#div-sobre",
-            { scale: 0.1, opacity: 0, duration: 1, ease: "back.out(1.6)" },
-            0.5,
-        );
-        tl.fromTo(
-            "#portada-sobre .pb-4",
-            { filter: "blur(14px)", opacity: 0, y: 10 },
-            {
-                filter: "blur(0px)",
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                ease: "power2.out",
-            },
-            0.8,
-        );
-        tl.to(
-            "#texto-click",
-            {
-                opacity: 0.55,
-                duration: 1.4,
-                ease: "sine.inOut",
-                yoyo: true,
-                repeat: -1,
-            },
-            "+=0.2",
-        );
+        tl.from("#div-sobre", { scale: 0.1, opacity: 0, duration: 1, ease: "back.out(1.6)" }, 0.5);
+        tl.fromTo("#portada-sobre .pb-4", { filter: "blur(14px)", opacity: 0, y: 10 }, { filter: "blur(0px)", opacity: 1, y: 0, duration: 1.2, ease: "power2.out" }, 0.8);
+        tl.to("#texto-click", { opacity: 0.55, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: -1 }, "+=0.2");
 
         btnSobre.addEventListener("click", () => {
             const audio = new Audio("/musica/melodia.mp3");
-            audio.loop = true;
-            audio.volume = 0.5;
-            audio.play().catch(() => {});
-            (window as any).audioGlobal = audio;
-            (window as any).estaReproduciendoGlobal = true;
+            audio.loop = true; audio.volume = 0.5; audio.play().catch(() => {});
+            (window as any).audioGlobal = audio; (window as any).estaReproduciendoGlobal = true;
 
             const overlay = document.getElementById("overlay-dorado")!;
             const tlSalida = gsap.timeline();
 
-            tlSalida.to(
-                "#div-sobre",
-                { scale: 1.08, duration: 0.9, ease: "power1.inOut" },
-                0,
-            );
-            tlSalida.to(
-                overlay,
-                { opacity: 0.35, duration: 0.7, ease: "power1.in" },
-                0.2,
-            );
-            tlSalida.to(
-                portada,
-                { opacity: 0, duration: 0.9, ease: "power2.inOut" },
-                0.6,
-            );
-            tlSalida.to(
-                overlay,
-                {
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power2.in",
-                    onStart: () => {
-                        overlay.style.background = "#060d1a";
-                    },
-                },
-                0.9,
-            );
+            tlSalida.to("#div-sobre", { scale: 1.08, duration: 0.9, ease: "power1.inOut" }, 0);
+            tlSalida.to(overlay, { opacity: 0.35, duration: 0.7, ease: "power1.in" }, 0.2);
+            tlSalida.to(portada, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, 0.6);
+            tlSalida.to(overlay, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => { overlay.style.background = "#060d1a"; } }, 0.9);
 
             tlSalida.call(() => {
                 html.classList.remove("lock-scroll");
@@ -432,32 +294,13 @@ const { nombre, pase } = Astro.props;
                 const nombresFlores = document.getElementById("nombres-flores");
                 if (nombresFlores) {
                     nombresFlores.style.display = "block";
-                    if (
-                        typeof (window as any).iniciarAnimacionNombresFlores ===
-                        "function"
-                    )
-                        (window as any).iniciarAnimacionNombresFlores();
-                    if (
-                        typeof (window as any).iniciarAnimacionDedicatoria ===
-                        "function"
-                    )
-                        (window as any).iniciarAnimacionDedicatoria();
+                    if (typeof (window as any).iniciarAnimacionNombresFlores === "function") (window as any).iniciarAnimacionNombresFlores();
+                    if (typeof (window as any).iniciarAnimacionDedicatoria === "function") (window as any).iniciarAnimacionDedicatoria();
                 }
-                setTimeout(() => {
-                    ScrollTrigger.refresh();
-                }, 100);
+                setTimeout(() => { ScrollTrigger.refresh(); }, 100);
             });
 
-            tlSalida.to(
-                overlay,
-                {
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power2.out",
-                    onComplete: () => overlay.remove(),
-                },
-                "+=0.05",
-            );
+            tlSalida.to(overlay, { opacity: 0, duration: 1.2, ease: "power2.out", onComplete: () => overlay.remove() }, "+=0.05");
         });
     });
 </script>

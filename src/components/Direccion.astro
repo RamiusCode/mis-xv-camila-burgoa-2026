@@ -75,7 +75,7 @@
         <!-- BOTÓN -->
         <a
             id="dir-boton"
-            href="https://maps.app.goo.gl/1xvEWDaJJMy2WE1JA"
+            href="https://maps.app.goo.gl/TL8cdbmFWFtTX2Cm7"
             target="_blank"
             rel="noopener noreferrer"
             class="mt-[24px] flex items-center justify-center gap-[8px] w-[65%] py-[14px]
@@ -117,7 +117,7 @@
                 trigger: contenedor,
                 start: "top 85%",
                 toggleActions: "play none none reset",
-            }
+            },
         });
 
         tl.from([personaje6, personaje7], {
@@ -145,39 +145,51 @@
                 });
             },
         })
-        .from(marco, {
-            scale: 0.9,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-        }, "-=0.8")
-        .from(contenido, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: "power2.out",
-            onComplete: () => {
-                const ubicacion = document.getElementById("dir-ubicacion");
-                if (!ubicacion) return;
-                gsap.to(ubicacion, {
-                    scale: 1.15,
-                    duration: 1.2,
-                    ease: "sine.inOut",
-                    repeat: -1,
-                    yoyo: true,
-                });
-            },
-        }, "-=0.6")
-        .from(boton, {
-            scale: 0.5,
-            opacity: 0,
-            duration: 1,
-            ease: "back.out(1.7)",
-            clearProps: "all",
-        }, "-=0.4");
+            .from(
+                marco,
+                {
+                    scale: 0.9,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.8",
+            )
+            .from(
+                contenido,
+                {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        const ubicacion =
+                            document.getElementById("dir-ubicacion");
+                        if (!ubicacion) return;
+                        gsap.to(ubicacion, {
+                            scale: 1.15,
+                            duration: 1.2,
+                            ease: "sine.inOut",
+                            repeat: -1,
+                            yoyo: true,
+                        });
+                    },
+                },
+                "-=0.6",
+            )
+            .from(
+                boton,
+                {
+                    scale: 0.5,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "back.out(1.7)",
+                    clearProps: "all",
+                },
+                "-=0.4",
+            );
     }
 
     document.addEventListener("DOMContentLoaded", initDireccion);
     document.addEventListener("astro:page-load", initDireccion);
 </script>
-
