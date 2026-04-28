@@ -508,5 +508,50 @@
         "slug": "william-claros-y-sra",
         "nombre": "William Claros Y Sra.",
         "pase": 2
+    },
+    {
+        "slug": "thiago-perez",
+        "nombre": "Thiago Perez",
+        "pase": 1
+    },
+    {
+        "slug": "juan-delgadillo",
+        "nombre": "Juan Delgadillo",
+        "pase": 1
+    },
+    {
+        "slug": "dana-justiniano",
+        "nombre": "Dana Justiniano",
+        "pase": 1
+    },
+    {
+        "slug": "adriana-pena",
+        "nombre": "Adriana Peña",
+        "pase": 1
+    },
+    {
+        "slug": "sergio-marquina",
+        "nombre": "Sergio Marquina",
+        "pase": 1
+    },
+    {
+        "slug": "david-taboada-y-sra",
+        "nombre": "David Taboada Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "ivan-montano-y-sra",
+        "nombre": "Ivan Montaño Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "sra-nair-toledo",
+        "nombre": "Sra. Nair Toledo",
+        "pase": 2
+    },
+    {
+        "slug": "pibe-melgar-y-sra",
+        "nombre": "Pibe Melgar Y Sra.",
+        "pase": 2
     }
 ]
