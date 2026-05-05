@@ -553,5 +553,75 @@
         "slug": "pibe-melgar-y-sra",
         "nombre": "Pibe Melgar Y Sra.",
         "pase": 2
+    },
+    {
+        "slug": "angel-rivero",
+        "nombre": "Angel Rivero",
+        "pase": 2
+    },
+    {
+        "slug": "victor-hugo-lastra",
+        "nombre": "Victor Hugo Lastra",
+        "pase": 1
+    },
+    {
+        "slug": "jose-yucra-y-sra",
+        "nombre": "Jose Yucra Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "alberto-yucra-y-sra",
+        "nombre": "Alberto Yucra Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "sra-luz-marina-lopez",
+        "nombre": "Sra. Luz Marina Lopez",
+        "pase": 2
+    },
+    {
+        "slug": "jose-antonio-mendoza-y-sra",
+        "nombre": "Jose Antonio Mendoza Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "brayan-laura-y-sra",
+        "nombre": "Brayan Laura Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "pablo-casas",
+        "nombre": "Pablo Casas",
+        "pase": 1
+    },
+    {
+        "slug": "fernando-burgoa",
+        "nombre": "Fernando Burgoa",
+        "pase": 1
+    },
+    {
+        "slug": "mirko-burgoa",
+        "nombre": "Mirko Burgoa",
+        "pase": 1
+    },
+    {
+        "slug": "ronald-mejia-y-sra",
+        "nombre": "Ronald Mejia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "milena-y-marco",
+        "nombre": "Milena Y Marco",
+        "pase": 2
+    },
+    {
+        "slug": "everth-coll-y-sra",
+        "nombre": "Everth Coll Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "micaela",
+        "nombre": "Micaela",
+        "pase": 1
     }
 ]
